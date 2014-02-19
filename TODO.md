@@ -1,4 +1,3 @@
 - responsivify the UI
 - style the UI
-- deploy to heroku
-- register domain name
+- fix domain redirect
