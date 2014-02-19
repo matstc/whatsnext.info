@@ -8,6 +8,10 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
   sammy(function(){
     this.get("#/:language", function(){
       console.log("loading " + this.params['language']);
+
+      jquery.getJSON('/repositories/' + this.params['language'], function(json){
+        console.log('received data from server: ' + json);
+      });
     });
   }).run();
 
