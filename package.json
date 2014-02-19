@@ -1,0 +1,10 @@
+{
+  "name" : "whatsnext.info",
+  "dependencies" : {
+    "requirejs": "*",
+    "mocha": "*",
+    "assert-plus": "*",
+    "jquery": "2.1.0"
+  }
+}
+

@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %script{'data-main' => 'main', 'src' => 'require.js'}
+
+  %body
+    %h1 What To Learn Next?
+    .subtitle Learning resources for popular github projects
+
+    %ul.language-list{'data-bind' => 'foreach: languages'}
+      %li
+        %a{'data-bind' => 'text: name, attr: { href:url }'}
