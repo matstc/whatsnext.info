@@ -4,7 +4,6 @@ GEM
     coderay (1.0.9)
     haml (4.0.5)
       tilt
-    memoist (0.9.1)
     method_source (0.8.2)
     pry (0.9.12.5)
       coderay (~> 1.0)
@@ -25,6 +24,5 @@ PLATFORMS
 
 DEPENDENCIES
   haml
-  memoist
   pry
   sinatra
