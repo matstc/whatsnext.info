@@ -1,7 +1,7 @@
 define(['knockout', 'jquery'], function(ko, jquery){
   var Language = function(name){
     this.name = name;
-    this.url = '/' + name;
+    this.url = '#/' + name;
     return this;
   };
 
@@ -17,6 +17,6 @@ define(['knockout', 'jquery'], function(ko, jquery){
     ko.applyBindings(languagesViewModel);
   };
 
-  return {init: init};
+  return {init: init, Language: Language};
 });
 
