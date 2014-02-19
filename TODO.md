@@ -1,4 +1,3 @@
-- hook with travis ci
 - responsivify the UI
 - style the UI
 - deploy to heroku
