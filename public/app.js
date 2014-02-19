@@ -5,18 +5,19 @@ define(['knockout', 'jquery'], function(ko, jquery){
     return this;
   };
 
-  var languagesViewModel = {
+  var viewModel = {
       languages: [
         new Language('javascript'),
         new Language('ruby'),
         new Language('python')
-        ]
+        ],
+      repositories: ko.observableArray([])
   };
 
   var init = function(){
-    ko.applyBindings(languagesViewModel);
+    ko.applyBindings(viewModel);
   };
 
-  return {init: init, Language: Language};
+  return {init: init, Language: Language, viewModel: viewModel};
 });
 

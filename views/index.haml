@@ -10,3 +10,8 @@
     %ul.language-list{'data-bind' => 'foreach: languages'}
       %li
         %a{'data-bind' => 'text: name, attr {href: url}'}
+
+    %ul.repository-list{'data-bind' => 'foreach: repositories'}
+      %li
+        %div{'data-bind' => 'text: name'}
+        %div{'data-bind' => 'text: stargazers_count'}

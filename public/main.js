@@ -11,6 +11,7 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
 
       jquery.getJSON('/repositories/' + this.params['language'], function(json){
         console.log('received data from server: ' + json);
+        app.viewModel.repositories(json);
       });
     });
   }).run();
