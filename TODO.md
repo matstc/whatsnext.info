@@ -1,4 +1,3 @@
-- memoize the api calls
 - hook with travis ci
 - responsivify the UI
 - style the UI

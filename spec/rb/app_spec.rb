@@ -1,27 +1,33 @@
-require_relative '../../github'
+require_relative '../../lib/github'
+require_relative '../../lib/cache'
 require 'minitest/spec'
 require 'minitest/autorun'
 
-describe "Github" do
-  it "memoizes by language" do
-    skip
+describe "Github Cache" do
+  it "caches for 2 seconds" do
+    cache = GithubCache.new timeout: 2
     github = Github.new
+    cache.instance_variable_set("@github", github)
     calls = 0
-    github.send(:define_singleton_method, "open") do |uri|
+    github.send(:define_singleton_method, "most_starred") do |language|
       calls += 1
-      Class.new { def read; $DATA; end }.new
     end
-    
-    github.most_starred "ruby"
-    calls.must_equal 1
-    github.most_starred "ruby"
-    calls.must_equal 1
-    github.most_starred "javascript"
-    calls.must_equal 2
-    github.most_starred "javascript"
-    calls.must_equal 2
-  end
 
+    cache.most_starred "ruby"
+    calls.must_equal 1
+    cache.most_starred "ruby"
+    calls.must_equal 1
+    cache.most_starred "javascript"
+    calls.must_equal 2
+    cache.most_starred "javascript"
+    calls.must_equal 2
+    sleep 2
+    cache.most_starred "ruby"
+    calls.must_equal 3
+  end
+end
+
+describe "Github" do
   it "fetches most starred repositories" do
     github = Github.new
     github.send(:define_singleton_method, "open") do |uri|

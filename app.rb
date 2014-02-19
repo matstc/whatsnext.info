@@ -1,5 +1,7 @@
 require 'sinatra'
-require_relative 'github'
+require_relative 'lib/cache'
+
+github = GithubCache.new
 
 get '/' do 
   haml :index
@@ -7,5 +9,5 @@ end
 
 get '/repositories/:language' do
   language = params[:language]
-  Github.new.most_starred(language).to_json
+  github.most_starred(language).to_json
 end
