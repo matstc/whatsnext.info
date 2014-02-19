@@ -7,5 +7,5 @@ end
 
 get '/repositories/:language' do
   language = params[:language]
-  Github::most_starred(language).to_json
+  Github.new.most_starred(language).to_json
 end

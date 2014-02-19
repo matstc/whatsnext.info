@@ -3,17 +3,31 @@ require 'minitest/spec'
 require 'minitest/autorun'
 
 describe "Github" do
-  it "fetches most starred repositories" do
-    module Github
-      def self.open uri
-        Struct.new(:read) do
-          def read
-            $DATA
-          end
-        end.new
-      end
+  it "memoizes by language" do
+    skip
+    github = Github.new
+    calls = 0
+    github.send(:define_singleton_method, "open") do |uri|
+      calls += 1
+      Class.new { def read; $DATA; end }.new
     end
-    most_starred = Github::most_starred "ruby"
+    
+    github.most_starred "ruby"
+    calls.must_equal 1
+    github.most_starred "ruby"
+    calls.must_equal 1
+    github.most_starred "javascript"
+    calls.must_equal 2
+    github.most_starred "javascript"
+    calls.must_equal 2
+  end
+
+  it "fetches most starred repositories" do
+    github = Github.new
+    github.send(:define_singleton_method, "open") do |uri|
+      Class.new { def read; $DATA; end }.new
+    end
+    most_starred = github.most_starred "ruby"
     most_starred.length.must_equal 1
     rails = most_starred[0]
     rails['name'].must_equal "rails"
