@@ -13,5 +13,9 @@
 
     %ul.repository-list{'data-bind' => 'foreach: repositories'}
       %li
-        %div{'data-bind' => 'text: name'}
+        %div{'data-bind' => 'text: $index() + 1'}
+        %div
+          %a{'data-bind' => 'text: name, attr {href: html_url}'}
+        %div{'data-bind' => 'text: description'}
         %div{'data-bind' => 'text: stargazers_count'}
+        %img{'data-bind' => 'attr {src:owner.avatar_url}'}
