@@ -1,0 +1,8 @@
+language: ruby
+rvm: 2.0.0
+before_script: 
+  - npm install
+  - npm install -g mocha
+script:
+  - bundle exec ruby spec/rb/app_spec.rb
+  - mocha spec/js/app_spec.js
