@@ -1,4 +1,2 @@
-- populate resources
 - style for phones
-- add analytics
-- add wiki
+- minify stuff
