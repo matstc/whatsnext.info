@@ -1,2 +1,2 @@
 - style the UI
-- fix domain redirect
+- add wiki
