@@ -1,3 +1,2 @@
-- responsivify the UI
 - style the UI
 - fix domain redirect

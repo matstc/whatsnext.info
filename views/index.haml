@@ -2,20 +2,37 @@
 %html
   %head
     %script{'data-main' => 'main', 'src' => 'require.js'}
+    %link{'href' => 'bootstrap.css', 'rel' => 'stylesheet'}
+    %link{'href' => 'bootstrap-theme.css', 'rel' => 'stylesheet'}
+    %link{'href' => 'styles.css', 'rel' => 'stylesheet'}
 
   %body
-    %h1 What To Learn Next?
-    .subtitle Learning resources for popular github projects
+    .container
+      .row
+        .col-md-2
+        .col-md-8
+          %h1 What To Learn Next?
+          .lead Popular Github projects based on star status
+        .col-md-2
 
-    %ul.language-list{'data-bind' => 'foreach: languages'}
-      %li
-        %a{'data-bind' => 'text: name, attr {href: url}'}
+      .row
+        .col-md-2
+        .col-md-8
+          .row
+            .col-md-2
+              %ul.nav.nav-pills.nav-stacked.language-list{'data-bind' => 'foreach: languages'}
+                %li
+                  %a{'data-bind' => 'text: name, attr {href: url}'}
 
-    %ul.repository-list{'data-bind' => 'foreach: repositories'}
-      %li
-        %div{'data-bind' => 'text: $index() + 1'}
-        %div
-          %a{'data-bind' => 'text: name, attr {href: html_url}'}
-        %div{'data-bind' => 'text: description'}
-        %div{'data-bind' => 'text: stargazers_count'}
-        %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+            .col-md-10
+              %ul.repository-list{'data-bind' => 'foreach: repositories'}
+                %li{'data-bind' => 'css: $index() % 2 === 0 ? "even" : "odd"'}
+                  %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+                  %div{'data-bind' => 'text: $index() + 1', 'class' => 'rank'}
+                  %h3.name
+                    %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                  %span{'data-bind' => 'text: description'}
+                  %div
+                    %span{'class' => 'glyphicon glyphicon-star'}
+                    %span{'data-bind' => 'text: stargazers_count'}
+        .col-md-2

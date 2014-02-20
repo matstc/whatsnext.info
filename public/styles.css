@@ -1,0 +1,6 @@
+.repository-list {list-style-type: none;}
+.repository-list li.odd {background-color:#eee;}
+.repository-list li img {float:right; width:80px;}
+.repository-list li .name {margin-top:0;}
+.repository-list li {clear:both; margin-bottom:30px; padding:10px; min-height:100px;}
+.repository-list .rank {float:left; margin-left:-35px; margin-top:20px; font-size:22px; color:#888;}
