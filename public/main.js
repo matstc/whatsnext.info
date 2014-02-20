@@ -3,16 +3,15 @@ requirejs.config({
 });
 
 define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
+  window.app = app;
   jquery(document).ready(app.init);
 
   sammy(function(){
     this.get("#/:language", function(){
       console.log("loading " + this.params['language']);
 
-      jquery.getJSON('/repositories/' + this.params['language'], function(json){
-        console.log('received data from server: ' + json);
-        app.viewModel.repositories(json);
-      });
+      jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
+      app.viewModel.activateLanguage(this.params['language']);
     });
   }).run();
 

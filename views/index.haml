@@ -24,14 +24,16 @@
           .row
             .col-md-3
               %ul.nav.nav-pills.nav-stacked.language-list{'data-bind' => 'foreach: languages'}
-                %li
+                %li{'data-bind' => 'css: $root.activeLanguage() == $data ? "active" : ""'}
                   %a{'data-bind' => 'attr {href: url}'}
                     .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
                     %span{'data-bind' => 'text: name'}
 
             .col-md-9
-              %h2.low-margin Resources For Beginners
-              %h2 Resources For Experts
+              .div{'data-bind' => 'visible: activeLanguage && activeLanguage.beginnerResources'}
+                %h2 Resources For Beginners
+              .div{'data-bind' => 'visible: activeLanguage && activeLanguage.expertResources'}
+                %h2 Resources For Experts
               %h2 Most Popular Github Projects
               %ul.repository-list{'data-bind' => 'foreach: repositories'}
                 %li{'data-bind' => 'css: $index() % 2 === 0 ? "even" : "odd"'}

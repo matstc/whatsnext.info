@@ -13,7 +13,16 @@ define(['knockout', 'jquery'], function(ko, jquery){
         new Language('Ruby', 'rb', '#ff6161'),
         new Language('Python', 'py', '#99A0FF')
         ],
-      repositories: ko.observableArray([])
+      repositories: ko.observableArray([]),
+      activeLanguage: ko.observable(null),
+      activateLanguage: function(name){
+        if (name !== undefined){
+          this.activeLanguage(this.languages.filter(function(language){
+            return language.name.toLowerCase() === name;
+          })[0]);
+        }
+        return this.activeLanguage();
+      }
   };
 
   var init = function(){

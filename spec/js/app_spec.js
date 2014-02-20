@@ -25,3 +25,13 @@ describe("language", function(){
   });
 
 });
+
+describe("view model", function(){
+  it("sets active language from url name", function(){
+    app.viewModel.activateLanguage(app.viewModel.languages[0].name.toLowerCase());
+    assert.equal(app.viewModel.activeLanguage(), app.viewModel.languages[0]);
+
+    app.viewModel.activateLanguage(app.viewModel.languages[1].name.toLowerCase());
+    assert.equal(app.viewModel.activeLanguage(), app.viewModel.languages[1]);
+  });
+});
