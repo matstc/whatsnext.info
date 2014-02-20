@@ -9,8 +9,8 @@ define(['knockout', 'jquery'], function(ko, jquery){
 
   var viewModel = {
       languages: [
-        new Language('JavaScript', 'JS', '#EDCB5C'),
         new Language('Ruby', 'rb', '#ff6161'),
+        new Language('JavaScript', 'JS', '#EDCB5C'),
         new Language('Python', 'py', '#99A0FF')
         ],
       repositories: ko.observableArray([]),
