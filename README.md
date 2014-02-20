@@ -2,6 +2,13 @@
 
 A website that ranks github projects based on star status.
 
-See website:
+Homepage: [whatsnext.info](http://www.whatsnext.info)
 
-[whatsnext.info](http://www.whatsnext.info)
+# Contributing
+If you want to add or modify the resources listed for a language, just clone this repository and edit the content under `content/your_language_of_choice`. Then submit a PR and I will merge your changes.
+
+If you want to add a new language, you can generate the basic content files with the rake task `rake language[your_new_language]`.
+
+<hr>
+
+License: [CC BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US)
