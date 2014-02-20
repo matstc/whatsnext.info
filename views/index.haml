@@ -37,7 +37,7 @@
 
             .col-md-9
               .div{'data-bind' => 'if: activeLanguage'}
-                %h1.section{'data-bind' => 'text: activeLanguage().name'}
+                %h1.section#section{'data-bind' => 'text: activeLanguage().name'}
                 .resources{'data-bind' => 'with: activeLanguage().resources'}
                   %blockquote{'data-bind' => 'html: in_one_sentence'}
 
