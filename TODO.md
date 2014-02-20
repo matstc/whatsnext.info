@@ -1,2 +1,0 @@
-- style for phones
-- minify stuff
