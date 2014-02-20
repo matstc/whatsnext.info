@@ -11,7 +11,8 @@ define(['knockout', 'jquery'], function(ko, jquery){
       languages: [
         new Language('Ruby', 'rb', '#ff6161'),
         new Language('JavaScript', 'JS', '#EDCB5C'),
-        new Language('Python', 'py', '#99A0FF')
+        new Language('Python', 'py', '#242BFF'),
+        new Language('CSS', '{}', '#88f')
         ],
       repositories: ko.observableArray([]),
       activeLanguage: ko.observable(null),
