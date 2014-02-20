@@ -1,15 +1,17 @@
 define(['knockout', 'jquery'], function(ko, jquery){
-  var Language = function(name){
+  var Language = function(name, shortName, color){
     this.name = name;
-    this.url = '#/' + name;
+    this.url = '#/' + name.toLowerCase();
+    this.shortName = shortName;
+    this.color = color;
     return this;
   };
 
   var viewModel = {
       languages: [
-        new Language('javascript'),
-        new Language('ruby'),
-        new Language('python')
+        new Language('JavaScript', 'JS', '#EDCB5C'),
+        new Language('Ruby', 'rb', '#ff6161'),
+        new Language('Python', 'py', '#99A0FF')
         ],
       repositories: ko.observableArray([])
   };

@@ -6,34 +6,43 @@
     %link{'href' => 'bootstrap-theme.css', 'rel' => 'stylesheet'}
     %link{'href' => 'styles.css', 'rel' => 'stylesheet'}
     %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1, maximum-scale=1", "user-scalable" => "no"}
+    <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 
   %body
     .container
-      .row
+      .row.header
         .col-md-2
         .col-md-8
           %h1 What To Learn Next?
-          .lead Popular Github projects based on star status
+          .lead Resources for learning languages and Github projects
         .col-md-2
 
-      .row
+      .row.content
         .col-md-2
         .col-md-8
           .row
-            .col-md-2
+            .col-md-3
               %ul.nav.nav-pills.nav-stacked.language-list{'data-bind' => 'foreach: languages'}
                 %li
-                  %a{'data-bind' => 'text: name, attr {href: url}'}
+                  %a{'data-bind' => 'attr {href: url}'}
+                    .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
+                    %span{'data-bind' => 'text: name'}
 
-            .col-md-10
+            .col-md-9
+              %h2.low-margin Resources For Beginners
+              %h2 Resources For Experts
+              %h2 Most Popular Github Projects
               %ul.repository-list{'data-bind' => 'foreach: repositories'}
                 %li{'data-bind' => 'css: $index() % 2 === 0 ? "even" : "odd"'}
                   %img{'data-bind' => 'attr {src:owner.avatar_url}'}
-                  %div{'data-bind' => 'text: $index() + 1', 'class' => 'rank'}
-                  %h3.name
-                    %a{'data-bind' => 'text: name, attr {href: html_url}'}
-                  %span{'data-bind' => 'text: description'}
-                  %div
-                    %span{'class' => 'glyphicon glyphicon-star'}
-                    %span{'data-bind' => 'text: stargazers_count'}
+                  %div{'data-bind' => 'text: "#" + ($index() + 1)', 'class' => 'rank'}
+                  .info
+                    %h3.name
+                      %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                    %span{'data-bind' => 'text: description'}
+                    .star-count
+                      %span.label.label-success
+                        %span{'class' => 'glyphicon glyphicon-star'}
+                        %span{'data-bind' => 'text: stargazers_count'}
         .col-md-2
