@@ -34,8 +34,10 @@ define(['knockout', 'jquery'], function(ko, jquery){
           var language = viewModel.activeNavItem();
           jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
 
-          var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 40;
-          jquery("html, body").animate({ scrollTop: toScroll + "px" });
+          setTimeout(function(){
+            var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 40;
+            jquery("html, body").animate({ scrollTop: toScroll + "px" });
+          }, 100);
         }
       }
   };
