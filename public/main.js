@@ -8,12 +8,12 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
 
   sammy(function(){
     this.get("#/about", function(){
-      app.viewModel.activateLanguage(null);
+      app.viewModel.go(location.hash);
     });
 
     this.get("#/:language", function(){
       jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
-      app.viewModel.activateLanguage(this.params['language']);
+      app.viewModel.go(location.hash);
     });
   }).run();
 

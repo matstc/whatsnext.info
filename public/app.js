@@ -1,9 +1,16 @@
 define(['knockout', 'jquery'], function(ko, jquery){
+
   var Language = function(name, shortName, color){
     this.name = name;
-    this.url = '#/' + name.toLowerCase();
+    this.hash = '#/' + name.toLowerCase();
     this.shortName = shortName;
     this.color = color;
+    this.active = ko.observable(false);
+    return this;
+  };
+
+  var NavItem = function(hash){
+    this.hash = hash;
     return this;
   };
 
@@ -14,22 +21,27 @@ define(['knockout', 'jquery'], function(ko, jquery){
         new Language('Python', 'py', '#242BFF'),
         new Language('CSS', '{}', '#88f')
         ],
+      about: new NavItem("#/about"),
       repositories: ko.observableArray([]),
-      activeLanguage: ko.observable(null),
-      activateLanguage: function(name){
-        if (name !== undefined){
-          this.activeLanguage(this.languages.filter(function(language){
-            return language.name.toLowerCase() === name;
-          })[0]);
-        }
-        return this.activeLanguage();
+      activeNavItem: ko.observable(null),
+      go: function(hash){
+        this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
+          return navItem.hash === hash;
+        })[0]);
       }
   };
+
+  viewModel.activeLanguage = ko.computed(function(){
+    if(viewModel.activeNavItem() && viewModel.activeNavItem().constructor === Language){
+      return viewModel.activeNavItem();
+    }
+    return null;
+  });
 
   var init = function(){
     ko.applyBindings(viewModel);
   };
 
-  return {init: init, Language: Language, viewModel: viewModel};
+  return {init: init, NavItem: NavItem, Language: Language, viewModel: viewModel};
 });
 

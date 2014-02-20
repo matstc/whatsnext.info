@@ -25,12 +25,12 @@
             .col-md-3
               %ul.nav.nav-pills.nav-stacked.language-list
                 <!-- ko foreach: languages -->
-                %li{'data-bind' => 'css: $root.activeLanguage() == $data ? "active" : ""'}
-                  %a{'data-bind' => 'attr {href: url}'}
+                %li{'data-bind' => 'css: $root.activeNavItem() == $data ? "active" : ""'}
+                  %a{'data-bind' => 'attr {href: hash}'}
                     .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
                     %span{'data-bind' => 'text: name'}
                 <!-- /ko -->
-                %li.about
+                %li.about{'data-bind' => 'css: $root.activeNavItem() == $root.about ? "active" : ""'}
                   %a{'href' => "#/about"}
                     .logo{'data-bind' => 'text: "WN"'}
                     %span About
@@ -40,7 +40,7 @@
                 %h2 Resources For Beginners
               .div{'data-bind' => 'visible: activeLanguage && activeLanguage.expertResources'}
                 %h2 Resources For Experts
-              .div{'data-bind' => 'visible: !activeLanguage()'}
+              .div{'data-bind' => 'visible: $root.activeNavItem() == $root.about'}
                 %h2 Get Learning
                 %p 
                   This site is meant for
