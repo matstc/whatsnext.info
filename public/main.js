@@ -7,6 +7,10 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
   jquery(document).ready(app.init);
 
   sammy(function(){
+    this.get("/", function(){
+      this.redirect("#/about");
+    });
+
     this.get("#/about", function(){
       app.viewModel.go(location.hash);
     });

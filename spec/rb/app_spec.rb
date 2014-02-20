@@ -1,7 +1,18 @@
 require_relative '../../lib/github'
 require_relative '../../lib/cache'
+require_relative '../../lib/resource'
 require 'minitest/spec'
 require 'minitest/autorun'
+
+describe "Resource" do
+  it "should convert markdown to html" do
+    Resource.directory = "spec/content"
+    ruby = Resource.fetch(:ruby)
+    ruby['in_one_sentence'].must_equal "<p>Swiss-army knife</p>\n"
+    ruby['for_beginners'].must_equal %{<p><a href="http://tryruby.org">Try Ruby</a></p>\n}
+    ruby['for_experts'].must_equal %{<p><a href="http://rubyweekly.com">Ruby Weekly</a></p>\n}
+  end
+end
 
 describe "Github Cache" do
   it "caches for 2 seconds" do

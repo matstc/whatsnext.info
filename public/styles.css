@@ -9,13 +9,15 @@
 
 .language-list {margin-top:30px;}
 .language-list li {font-size:16px;}
+.language-list li.active a .logo {box-shadow:1px 1px #333;}
 .language-list li.about {margin-top:30px; border-top:1px solid #ccc; padding-top:10px;}
 .language-list li a .logo {font-size:24px; color:white; background-color:#ccc; padding:5px 0 2px 0; width:44px; margin-right:5px; font-family:Luckiest Guy; border-radius:4px; display:inline-block; text-align:center;}
 
 .lead {letter-spacing:-1px; font-size:20px; color:#666; border-top:1px dotted #ccc; font-family:Courier New, Courier;}
 .content {margin-top:32px;}
-h1 {font-size:34px; margin-top:80px;}
+.header h1 {font-size:42px; margin-top:80px;}
+h1.language {border-bottom: 1px solid #ddd; font-size:38px;}
 h1, h2 {font-family: Luckiest Guy, Ubuntu, Verdana;}
 * {font-family:Ubuntu, Verdana;}
-h2 {margin-top:50px;}
+h2 {margin-top:60px; font-size:28px; letter-spacing:1px;}
 p {font-size:16px;}

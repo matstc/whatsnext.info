@@ -6,6 +6,7 @@ define(['knockout', 'jquery'], function(ko, jquery){
     this.shortName = shortName;
     this.color = color;
     this.active = ko.observable(false);
+    this.resources = ko.observable(null);
     return this;
   };
 
@@ -28,6 +29,11 @@ define(['knockout', 'jquery'], function(ko, jquery){
         this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
           return navItem.hash === hash;
         })[0]);
+
+        if(typeof window !== "undefined" && this.activeNavItem().constructor === Language){
+          var language = viewModel.activeNavItem();
+          jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
+        }
       }
   };
 
