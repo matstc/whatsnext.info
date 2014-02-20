@@ -16,7 +16,7 @@
 .lead {letter-spacing:-1px; font-size:20px; color:#666; border-top:1px dotted #ccc; font-family:Courier New, Courier;}
 .content {margin-top:32px;}
 .header h1 {font-size:42px; margin-top:80px;}
-h1.language {border-bottom: 1px solid #ddd; font-size:38px;}
+h1.section {border-bottom: 1px solid #ddd; font-size:38px;}
 h1, h2 {font-family: Luckiest Guy, Ubuntu, Verdana;}
 * {font-family:Ubuntu, Verdana;}
 h2 {margin-top:60px; font-size:28px; letter-spacing:1px;}
