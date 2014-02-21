@@ -49,6 +49,13 @@
                   %div{'data-bind' => 'html: for_experts'}
 
                 %h2 Most Popular Github Projects
+                %p<
+                  These projects are mostly written in
+                  %span{'data-bind' => 'text: activeLanguage().name'}<
+                  = "."
+                %p
+                  Have a look at these projects to hone your skills. Read code. Submit pull requests.
+
                 %ul.repository-list{'data-bind' => 'foreach: repositories'}
                   %li{'data-bind' => 'css: $index() % 2 === 0 ? "even" : "odd"'}
                     %img{'data-bind' => 'attr {src:owner.avatar_url}'}
