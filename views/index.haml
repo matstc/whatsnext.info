@@ -37,8 +37,8 @@
                     %span About
 
             .col-md-9
-              .div{'data-bind' => 'if: activeLanguage'}
-                %h1.section#section{'data-bind' => 'text: activeLanguage().name'}
+              %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
+                %h1#section{'data-bind' => 'text: activeLanguage().name'}
                 .resources{'data-bind' => 'with: activeLanguage().resources'}
                   %blockquote{'data-bind' => 'html: in_one_sentence'}
 
@@ -50,7 +50,7 @@
 
                 %h2 Most Popular Github Projects
                 %p<
-                  These projects are mostly written in
+                  These projects are written mostly in
                   %span{'data-bind' => 'text: activeLanguage().name'}<
                   = "."
                 %p
@@ -69,8 +69,8 @@
                           %span{'class' => 'glyphicon glyphicon-star'}
                           %span{'data-bind' => 'text: stargazers_count'}
 
-              .div{'data-bind' => 'visible: $root.activeNavItem() == $root.about'}
-                %h1.section Get Learning
+              %article{'data-bind' => 'visible: $root.activeNavItem() == $root.about'}
+                %h1 Get Learning
                 %p
                   This is a collection of resources for
                   %b beginners 
@@ -84,13 +84,31 @@
 
                 %p What's next? Pick a language and get learning!
 
+                %h2 The Resources
+                %p The resources listed on this site are chosen for their high-quality. They also have to be:
+                %ul.p-ish
+                  %li Free to use
+                  %li Online (no offline books)
+                  %li Weighty (not just a single blog post)
+
+                %p The resource listings are short to maintain quality. They should also be ordered by difficulty so you can pick them up one by one.
+
                 %h2 Contributing
+                %p Want to add a new language to the list? Or add your favorite resource?
                 %p
                   Check out
                   %a{'href' => 'https://github.com/matstc/whatsnext.info'}
                     whatsnext.info
-                  on github and submit a PR.
+                  on github and submit a pull request.
                 
+                %h2 License
+                %p<
+                  This project is under a
+                  %a{'href' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'}<
+                    Creative Commons BY-NC-SA license
+                  = "."
+
         .col-md-2
 
   = haml :analytics, :locals => {:tracking_id => ENV['TRACKING_ID']}
+

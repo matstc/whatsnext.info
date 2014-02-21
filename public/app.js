@@ -36,7 +36,7 @@ define(['knockout', 'jquery'], function(ko, jquery){
           jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
 
           setTimeout(function(){
-            var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 40;
+            var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 30;
             jquery("html, body").animate({ scrollTop: toScroll + "px" });
           }, 100);
         }
