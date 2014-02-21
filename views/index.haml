@@ -23,7 +23,7 @@
         .col-md-2
         .col-md-8
           .row
-            .col-md-3
+            .col-md-3.no-right-gutter
               %ul.nav.nav-pills.nav-stacked.language-list
                 <!-- ko foreach: languages -->
                 %li{'data-bind' => 'css: $root.activeNavItem() == $data ? "active" : ""'}
@@ -33,7 +33,7 @@
                 <!-- /ko -->
                 %li.about{'data-bind' => 'css: $root.activeNavItem() == $root.about ? "active" : ""'}
                   %a{'href' => "#/about"}
-                    .logo{'data-bind' => 'text: "WN"'}
+                    .logo{'data-bind' => 'text: "?"'}
                     %span About
 
             .col-md-9

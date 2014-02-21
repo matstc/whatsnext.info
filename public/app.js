@@ -19,6 +19,7 @@ define(['knockout', 'jquery'], function(ko, jquery){
       languages: [
         new Language('Ruby', 'rb', '#ff6161'),
         new Language('JavaScript', 'JS', '#EDCB5C'),
+        new Language('CoffeeScript', 'CS', '#222'),
         new Language('Python', 'py', '#242BFF'),
         new Language('CSS', '{}', '#88f')
         ],
