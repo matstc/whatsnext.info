@@ -13,6 +13,12 @@ namespace "test" do
     raise "Tests failed (#{cmd})" if status.exitstatus != 0
   end
 
+  desc 'Runs coverage for javascript tests'
+  task 'istanbul' do
+    puts `istanbul cover --hook-run-in-context _mocha **/*spec.js -- -R spec`
+    puts "Open coverage/lcov-report/index.html in a browser to see the results."
+  end
+
   desc 'Runs javascript tests'
   task "js" do
     run_tests "mocha spec/js/*_spec.js"
