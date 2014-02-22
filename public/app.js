@@ -15,34 +15,36 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
     return this;
   };
 
-  var viewModel = {
-      languages: [
-        new Language('Ruby', 'rb', '#ff6161'),
-        new Language('JavaScript', 'JS', '#EDCB5C'),
-        new Language('CoffeeScript', 'CS', '#222'),
-        new Language('Python', 'py', '#242BFF'),
-        new Language('CSS', '{}', '#88f')
-        ],
-      about: new NavItem("#/about"),
-      onAbout: function(){
-        return this.activeNavItem() === this.about;
-      },
-      repositories: ko.observableArray([]),
-      activeNavItem: ko.observable(null),
-      activeCss: function(item){
-        return this.activeNavItem() === item ? "active" : "";
-      },
-      activate: function(hash){
-        this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
-          return navItem.hash === hash;
-        })[0]);
-      },
-      activeLanguage: ko.computed(function(){
-        if(viewModel.activeNavItem() && viewModel.activeNavItem().constructor === Language){
-          return viewModel.activeNavItem();
-        }
-        return null;
-      }, this, {deferEvaluation: true})
+  var viewModel = new function(){
+    var self = this;
+    self.languages = [
+      new Language('Ruby', 'rb', '#ff6161'),
+      new Language('JavaScript', 'JS', '#EDCB5C'),
+      new Language('CoffeeScript', 'CS', '#222'),
+      new Language('Python', 'py', '#242BFF'),
+      new Language('CSS', '{}', '#88f')
+      ];
+
+    self.about = new NavItem("#/about");
+    self.onAbout = function(){ return self.activeNavItem() === self.about; };
+    self.repositories = ko.observableArray([]);
+    self.activeNavItem = ko.observable(null);
+    self.activeCss = function(item){ return self.activeNavItem() === item ? "active" : ""; };
+
+    self.activate = function(hash){
+      self.activeNavItem(self.languages.concat(self.about).filter(function(navItem){
+        return navItem.hash === hash;
+      })[0]);
+    };
+
+    self.activeLanguage = ko.computed(function(){
+      if(self.activeNavItem() && self.activeNavItem().constructor === Language){
+        return self.activeNavItem();
+      }
+      return null;
+    });
+
+    return self;
   };
 
   var init = function(){
