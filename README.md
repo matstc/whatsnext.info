@@ -4,6 +4,11 @@ A website that ranks github projects based on star status.
 
 Homepage: [whatsnext.info](http://www.whatsnext.info)
 
+# How To Run
+1. `npm install`
+2. `bundle install`
+3. `foreman start`
+
 # Contributing
 If you want to add or modify the resources listed for a language, just clone this repository and edit the content under `content/your_language_of_choice`. Then submit a PR and I will merge your changes.
 
