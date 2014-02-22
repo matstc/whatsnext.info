@@ -1,3 +1,4 @@
 *.swp
 *.swo
 coverage/
+node_modules/jsdom
