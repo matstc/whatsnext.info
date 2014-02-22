@@ -1,4 +1,4 @@
-define(['knockout', 'jquery'], function(ko, jquery){
+define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
 
   var Language = function(name, shortName, color){
     this.name = name;
@@ -24,8 +24,14 @@ define(['knockout', 'jquery'], function(ko, jquery){
         new Language('CSS', '{}', '#88f')
         ],
       about: new NavItem("#/about"),
+      onAbout: function(){
+        return this.activeNavItem() === this.about;
+      },
       repositories: ko.observableArray([]),
       activeNavItem: ko.observable(null),
+      activeCss: function(item){
+        return this.activeNavItem() === item ? "active" : "";
+      },
       go: function(hash){
         this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
           return navItem.hash === hash;

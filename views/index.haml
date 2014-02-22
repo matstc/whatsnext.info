@@ -26,12 +26,12 @@
             .col-md-3.no-right-gutter
               %ul.nav.nav-pills.nav-stacked.language-list
                 <!-- ko foreach: languages -->
-                %li{'data-bind' => 'css: $root.activeNavItem() == $data ? "active" : ""'}
+                %li{'data-bind' => 'css: $root.activeCss($data)'}
                   %a{'data-bind' => 'attr {href: hash}'}
                     .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
                     %span{'data-bind' => 'text: name'}
                 <!-- /ko -->
-                %li.about{'data-bind' => 'css: $root.activeNavItem() == $root.about ? "active" : ""'}
+                %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
                   %a{'href' => "#/about"}
                     .logo{'data-bind' => 'text: "?"'}
                     %span About
@@ -57,9 +57,9 @@
                   Have a look at these projects to hone your skills. Read code. Submit pull requests.
 
                 %ul.repository-list{'data-bind' => 'foreach: repositories'}
-                  %li{'data-bind' => 'css: $index() % 2 === 0 ? "even" : "odd"'}
+                  %li{'data-bind' => 'striped'}
                     %img{'data-bind' => 'attr {src:owner.avatar_url}'}
-                    %div{'data-bind' => 'text: "#" + ($index() + 1)', 'class' => 'rank'}
+                    %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
                     .info
                       %h3.name
                         %a{'data-bind' => 'text: name, attr {href: html_url}'}
@@ -69,7 +69,7 @@
                           %span{'class' => 'glyphicon glyphicon-star'}
                           %span{'data-bind' => 'text: stargazers_count'}
 
-              %article{'data-bind' => 'visible: $root.activeNavItem() == $root.about'}
+              %article{'data-bind' => 'visible: onAbout()'}
                 %h1 Get Learning
                 %p
                   This is a collection of resources for
