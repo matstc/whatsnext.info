@@ -36,15 +36,14 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
         this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
           return navItem.hash === hash;
         })[0]);
-      }
+      },
+      activeLanguage: ko.computed(function(){
+        if(viewModel.activeNavItem() && viewModel.activeNavItem().constructor === Language){
+          return viewModel.activeNavItem();
+        }
+        return null;
+      }, this, {deferEvaluation: true})
   };
-
-  viewModel.activeLanguage = ko.computed(function(){
-    if(viewModel.activeNavItem() && viewModel.activeNavItem().constructor === Language){
-      return viewModel.activeNavItem();
-    }
-    return null;
-  });
 
   var init = function(){
     ko.applyBindings(viewModel);
