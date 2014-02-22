@@ -18,6 +18,7 @@ define(['knockout', 'jquery'], function(ko, jquery){
       }
   };
 
+  return {rank: ko.bindingHandlers.rank, striped: ko.bindingHandlers.striped}
 });
 
 

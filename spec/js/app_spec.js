@@ -1,8 +1,6 @@
-requirejs = require('requirejs');
-requirejs.config({ baseUrl: 'public', nodeRequire: require });
-assert = requirejs('assert-plus');
+require("./spec_helper");
 
-app = requirejs('app');
+var app = requirejs('app');
 
 describe("language", function(){
   it("has a name", function(){

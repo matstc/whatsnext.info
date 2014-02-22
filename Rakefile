@@ -15,7 +15,7 @@ namespace "test" do
 
   desc 'Runs javascript tests'
   task "js" do
-    run_tests "mocha spec/js/app_spec.js"
+    run_tests "mocha spec/js/*_spec.js"
   end
 
   desc 'Runs ruby tests'
