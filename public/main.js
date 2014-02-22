@@ -15,12 +15,23 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
     });
 
     this.get("#/about", function(){
-      app.viewModel.go(location.hash);
+      app.viewModel.activate(location.hash);
     });
 
     this.get("#/:language", function(){
       jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
-      app.viewModel.go(location.hash);
+
+      app.viewModel.activate(location.hash);
+
+      if(typeof window !== "undefined" && app.viewModel.activeLanguage()){
+        var language = app.viewModel.activeLanguage();
+        jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
+
+        setTimeout(function(){
+          var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 20;
+          jquery("html, body").animate({ scrollTop: toScroll + "px" });
+        }, 100);
+      }
     });
   }).run();
 

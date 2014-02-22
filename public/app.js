@@ -32,20 +32,10 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
       activeCss: function(item){
         return this.activeNavItem() === item ? "active" : "";
       },
-      go: function(hash){
+      activate: function(hash){
         this.activeNavItem(this.languages.concat(this.about).filter(function(navItem){
           return navItem.hash === hash;
         })[0]);
-
-        if(typeof window !== "undefined" && this.activeNavItem().constructor === Language){
-          var language = viewModel.activeNavItem();
-          jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
-
-          setTimeout(function(){
-            var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 20;
-            jquery("html, body").animate({ scrollTop: toScroll + "px" });
-          }, 100);
-        }
       }
   };
 

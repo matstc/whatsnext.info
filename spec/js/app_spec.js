@@ -28,10 +28,10 @@ describe("language", function(){
 
 describe("view model", function(){
   it("sets active language from name", function(){
-    app.viewModel.go(app.viewModel.languages[0].hash);
+    app.viewModel.activate(app.viewModel.languages[0].hash);
     assert.equal(app.viewModel.activeNavItem(), app.viewModel.languages[0]);
 
-    app.viewModel.go(app.viewModel.languages[1].hash);
+    app.viewModel.activate(app.viewModel.languages[1].hash);
     assert.equal(app.viewModel.activeNavItem(), app.viewModel.languages[1]);
   });
 });
