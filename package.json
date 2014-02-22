@@ -3,6 +3,7 @@
   "dependencies" : {
     "requirejs": "*",
     "mocha": "*",
+    "jsdom": "*",
     "assert-plus": "*",
     "istanbul": "*"
   }
