@@ -4,4 +4,6 @@
 
 [Crockford's Resources](http://www.crockford.com/javascript/) for a plethora of advanced material.
 
+[JavaScript Weekly](http://javascriptweekly.com/) is a newsletter to help you keep up to date with the news technologies and frameworks.
+
 [Code Wars](http://www.codewars.com/) to practice some katas.
