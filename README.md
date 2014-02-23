@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/matstc/whatsnext.info.png)](https://travis-ci.org/matstc/whatsnext.info)
 
-A website that ranks github projects based on star status.
+Resources to learn programming languages for beginners and experts. Includes a ranking of github repositories by star status to figure out what to learn next.
 
 Homepage: [whatsnext.info](http://www.whatsnext.info)
 
