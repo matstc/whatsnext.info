@@ -16,6 +16,7 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
 
     this.get("#/about", function(){
       app.viewModel.activate(location.hash);
+      $(document.head.getElementsByTagName("title")).text("What's Next? — About");
     });
 
     this.get("#/:language", function(){
@@ -25,12 +26,15 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
 
       if(typeof window !== "undefined" && app.viewModel.activeLanguage()){
         var language = app.viewModel.activeLanguage();
+
         jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
 
         setTimeout(function(){
           var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 20;
           jquery("html, body").animate({ scrollTop: toScroll + "px" });
         }, 100);
+
+        $(document.head.getElementsByTagName("title")).text("What's Next? — " + language.name);
       }
     });
   }).run();
