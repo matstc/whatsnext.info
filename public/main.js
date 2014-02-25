@@ -20,7 +20,11 @@ define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
     });
 
     this.get("#/:language", function(){
-      jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
+      app.viewModel.repositories([]);
+
+      if (this.params['language'] !== 'programming'){
+        jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
+      }
 
       app.viewModel.activate(location.hash);
 

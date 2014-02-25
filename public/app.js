@@ -22,7 +22,8 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
       new Language('JavaScript', 'JS', '#EDCB5C'),
       new Language('CoffeeScript', 'CS', '#222'),
       new Language('Python', 'py', '#242BFF'),
-      new Language('CSS', '{}', '#88f')
+      new Language('CSS', '{}', '#86f'),
+      new Language('Programming', '==', '#666')
       ];
 
     self.about = new NavItem("#/about");

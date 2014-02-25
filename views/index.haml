@@ -27,7 +27,7 @@
         .col-md-2
         .col-md-8
           .row
-            .col-md-3.no-right-gutter
+            .col-md-4
               %ul.nav.nav-pills.nav-stacked.language-list
                 <!-- ko foreach: languages -->
                 %li{'data-bind' => 'css: $root.activeCss($data)'}
@@ -40,7 +40,7 @@
                     .logo{'data-bind' => 'text: "?"'}
                     %span About
 
-            .col-md-9
+            .col-md-8
               %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
                 %h1#section{'data-bind' => 'text: activeLanguage().name'}
                 .resources{'data-bind' => 'with: activeLanguage().resources'}
@@ -52,26 +52,29 @@
                   %h2 Resources For Experts
                   %div{'data-bind' => 'html: for_experts'}
 
-                %h2 Most Popular Github Projects
-                %p<
-                  These projects are written mostly in
-                  %span{'data-bind' => 'text: activeLanguage().name'}<
-                  = "."
-                %p
-                  Have a look at these projects to hone your skills. Read code. Submit pull requests.
+                .repositories{'data-bind' => 'if: repositories().length > 0, visible: repositories.length > 0'}
+                  %span{'data-bind' => 'text: repositories'}
+                  ^^
+                  %h2 Most Popular Github Projects
+                  %p<
+                    These projects are written mostly in
+                    %span{'data-bind' => 'text: activeLanguage().name'}<
+                    = "."
+                  %p
+                    Have a look at these projects to hone your skills. Read code. Submit pull requests.
 
-                %ul.repository-list{'data-bind' => 'foreach: repositories'}
-                  %li{'data-bind' => 'striped'}
-                    %img{'data-bind' => 'attr {src:owner.avatar_url}'}
-                    %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
-                    .info
-                      %h3.name
-                        %a{'data-bind' => 'text: name, attr {href: html_url}'}
-                      %span{'data-bind' => 'text: description'}
-                      .star-count
-                        %span.label.label-success
-                          %span{'class' => 'glyphicon glyphicon-star'}
-                          %span{'data-bind' => 'text: stargazers_count'}
+                  %ul.repository-list{'data-bind' => 'foreach: repositories'}
+                    %li{'data-bind' => 'striped'}
+                      %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+                      %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
+                      .info
+                        %h3.name
+                          %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                        %span{'data-bind' => 'text: description'}
+                        .star-count
+                          %span.label.label-success
+                            %span{'class' => 'glyphicon glyphicon-star'}
+                            %span{'data-bind' => 'text: stargazers_count'}
 
               %article{'data-bind' => 'visible: onAbout()'}
                 %h1 Get Learning
