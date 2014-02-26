@@ -52,9 +52,7 @@
                   %h2 Resources For Experts
                   %div{'data-bind' => 'html: for_experts'}
 
-                .repositories{'data-bind' => 'if: repositories().length > 0, visible: repositories.length > 0'}
-                  %span{'data-bind' => 'text: repositories'}
-                  ^^
+                .repositories{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
                   %h2 Most Popular Github Projects
                   %p<
                     These projects are written mostly in
