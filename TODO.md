@@ -1,5 +1,9 @@
 # Features
 
+## Phone Performance
+- the sliding animation when opening a section is not smooth
+- the font size changes a little bit as a section expands
+
 ## Fix main.js line 9
 ?
 
