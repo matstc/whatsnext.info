@@ -44,39 +44,42 @@
             .col-md-8
               %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
                 %h1#section{'data-bind' => 'text: activeLanguage().name'}
-                .resources{'data-bind' => 'with: activeLanguage().resources'}
-                  %blockquote{'data-bind' => 'html: in_one_sentence'}
+                <!-- ko with: activeLanguage().resources -->
+                %blockquote{'data-bind' => 'html: in_one_sentence'}
+                <!-- /ko -->
 
+                .panel-group
+                  <!-- ko with: activeLanguage().resources -->
                   .panel.panel-default
                     .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}
-                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
-                        Resources For Beginners
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}<
+                        %i{'class' => 'glyphicon glyphicon-plus'}
+                        = "Resources For Beginners"
                     .panel-body.panel-collapse.collapse{'id' => 'for-beginners', 'data-bind' => 'html: for_beginners'}
 
                   .panel.panel-default
                     .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}
-                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
-                        Resources For Experts
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}<
+                        %i{'class' => 'glyphicon glyphicon-plus'}
+                        = "Resources For Experts"
                     .panel-body.panel-collapse.collapse{'id' => 'for-experts', 'data-bind' => 'html: for_experts'}
 
                   .panel.panel-default
                     .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}
-                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
-                        Interview Questions
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}<
+                        %i{'class' => 'glyphicon glyphicon-plus'}
+                        = "Interview Questions"
                     .panel-body.panel-collapse.collapse#interview-questions
                       %p Here are some questions you should be comfortable with.
                       .p-ish
                         %div{'data-bind' => 'html: interview_questions'}
+                  <!-- /ko -->
 
-                .repositories-section{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
-                  .panel.panel-default
+                  .panel.panel-default{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
                     .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}
-                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
-                        Most Popular Github Projects
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}<
+                        %i{'class' => 'glyphicon glyphicon-plus'}
+                        = "Most Popular Github Projects"
                     .panel-body.panel-collapse#repositories
                       %p<
                         These projects are written mostly in
