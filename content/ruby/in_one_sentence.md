@@ -1,1 +1,1 @@
-A swiss-army knife!
+An object-oriented swiss-army knife.
