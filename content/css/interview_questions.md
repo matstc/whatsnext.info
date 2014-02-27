@@ -1,0 +1,4 @@
+- Give your opinion on SASS vs LESS
+- What is a selector's specificity?
+- Is it okay to use pixels or should most CSS directives be relative?
+- What are the advantages and limitations of a responsive design?

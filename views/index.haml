@@ -52,6 +52,11 @@
                   %h2 Resources For Experts
                   %div{'data-bind' => 'html: for_experts'}
 
+                  %h2 Interview Questions
+                  %p Here are some questions you should be comfortable with.
+                  .p-ish
+                    %div{'data-bind' => 'html: interview_questions'}
+
                 .repositories{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
                   %h2 Most Popular Github Projects
                   %p<
@@ -91,10 +96,11 @@
 
                 %h2 The Resources
                 %p The resources listed on this site are chosen for their high quality. They also have to be:
-                %ul.p-ish
-                  %li Free to use
-                  %li Online (no offline books)
-                  %li Weighty (not just a single blog post)
+                .p-ish
+                  %ul
+                    %li Free to use
+                    %li Online (no offline books)
+                    %li Weighty (not just a single blog post)
 
                 %p The resource listings are short to maintain quality. They should also be ordered by difficulty so you can pick them up one by one.
 

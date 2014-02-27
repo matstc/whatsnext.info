@@ -1,0 +1,4 @@
+- How do you use docstrings?
+- How does python code compilation work?
+- How can you pass a function around to another function?
+- What are some of the important changes in python 3?

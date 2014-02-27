@@ -5,6 +5,7 @@ task "language", :name do |t, args|
   `echo "TBA" > content/#{language}/in_one_sentence.md`
   `echo "TBA" > content/#{language}/for_beginners.md`
   `echo "TBA" > content/#{language}/for_experts.md`
+  `echo "TBA" > content/#{language}/interview_questions.md`
 end
 
 namespace "test" do

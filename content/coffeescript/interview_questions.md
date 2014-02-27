@@ -1,0 +1,3 @@
+- How does inheritance work in CoffeeScript?
+- Explain list comprehensions and give examples.
+- Explain the fat arrow.

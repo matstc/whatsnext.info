@@ -12,6 +12,7 @@ class Resource
     resource['in_one_sentence'] = to_html(language, "in_one_sentence.md")
     resource['for_beginners'] = to_html(language, "for_beginners.md")
     resource['for_experts'] = to_html(language, "for_experts.md")
+    resource['interview_questions'] = to_html(language, "interview_questions.md")
     resource
   end
 
