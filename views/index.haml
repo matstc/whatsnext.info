@@ -5,9 +5,10 @@
     %link{'href' => 'bootstrap.css', 'rel' => 'stylesheet'}
     %link{'href' => 'bootstrap-theme.css', 'rel' => 'stylesheet'}
     %link{'href' => 'styles.css', 'rel' => 'stylesheet'}
+
     %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1, maximum-scale=1", "user-scalable" => "no"}
     %meta{'name' => 'description', 'content' => "Resources to learn programming languages for beginners, experts, and freelancers."}
-    %meta{'name' => 'keywords', 'content' => "code, coding, programming, language, learning, resources, ruby, python, javascript, coffeescript, css, github, repositories"}
+    %meta{'name' => 'keywords', 'content' => "code, coding, programming, language, learning, resources, ruby, python, javascript, coffeescript, css, github, repositories, interview, questions"}
     %title
       What's Next?
     <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
@@ -46,38 +47,56 @@
                 .resources{'data-bind' => 'with: activeLanguage().resources'}
                   %blockquote{'data-bind' => 'html: in_one_sentence'}
 
-                  %h2 Resources For Beginners
-                  %div{'data-bind' => 'html: for_beginners'}
+                  .panel.panel-default
+                    .panel-heading
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}
+                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
+                        Resources For Beginners
+                    .panel-body.panel-collapse.collapse{'id' => 'for-beginners', 'data-bind' => 'html: for_beginners'}
 
-                  %h2 Resources For Experts
-                  %div{'data-bind' => 'html: for_experts'}
+                  .panel.panel-default
+                    .panel-heading
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}
+                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
+                        Resources For Experts
+                    .panel-body.panel-collapse.collapse{'id' => 'for-experts', 'data-bind' => 'html: for_experts'}
 
-                  %h2 Interview Questions
-                  %p Here are some questions you should be comfortable with.
-                  .p-ish
-                    %div{'data-bind' => 'html: interview_questions'}
+                  .panel.panel-default
+                    .panel-heading
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}
+                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
+                        Interview Questions
+                    .panel-body.panel-collapse.collapse#interview-questions
+                      %p Here are some questions you should be comfortable with.
+                      .p-ish
+                        %div{'data-bind' => 'html: interview_questions'}
 
-                .repositories{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
-                  %h2 Most Popular Github Projects
-                  %p<
-                    These projects are written mostly in
-                    %span{'data-bind' => 'text: activeLanguage().name'}<
-                    = "."
-                  %p
-                    Have a look at these projects to hone your skills. Read code. Submit pull requests.
+                .repositories-section{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
+                  .panel.panel-default
+                    .panel-heading
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}
+                        %i{'class' => 'glyphicon glyphicon-chevron-right'}
+                        Most Popular Github Projects
+                    .panel-body.panel-collapse#repositories
+                      %p<
+                        These projects are written mostly in
+                        %span{'data-bind' => 'text: activeLanguage().name'}<
+                        = "."
+                      %p
+                        Have a look at these projects to hone your skills. Read code. Submit pull requests.
 
-                  %ul.repository-list{'data-bind' => 'foreach: repositories'}
-                    %li{'data-bind' => 'striped'}
-                      %img{'data-bind' => 'attr {src:owner.avatar_url}'}
-                      %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
-                      .info
-                        %h3.name
-                          %a{'data-bind' => 'text: name, attr {href: html_url}'}
-                        %span{'data-bind' => 'text: description'}
-                        .star-count
-                          %span.label.label-success
-                            %span{'class' => 'glyphicon glyphicon-star'}
-                            %span{'data-bind' => 'text: stargazers_count'}
+                      %ul.repository-list{'data-bind' => 'foreach: repositories'}
+                        %li{'data-bind' => 'striped'}
+                          %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+                          %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
+                          .info
+                            %h3.name
+                              %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                            %span{'data-bind' => 'text: description'}
+                            .star-count
+                              %span.label.label-success
+                                %span{'class' => 'glyphicon glyphicon-star'}
+                                %span{'data-bind' => 'text: stargazers_count'}
 
               %article{'data-bind' => 'visible: onAbout()'}
                 %h1 Get Learning

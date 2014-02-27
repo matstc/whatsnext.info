@@ -2,7 +2,7 @@ requirejs.config({
   paths: {jquery: 'jquery-2.1.0'}
 });
 
-define(['jquery', 'app', 'sammy'], function(jquery, app, sammy){
+define(['jquery', 'app', 'sammy', 'bootstrap'], function(jquery, app, sammy){
   window.app = app;
   jquery(document).ready(app.init);
 

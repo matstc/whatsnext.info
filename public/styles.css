@@ -23,8 +23,12 @@ h1, h2 {font-family: Luckiest Guy, Ubuntu, Verdana;}
 p, .p-ish {line-height:24px; font-size:16px;}
 .p-ish ul li {margin: 15px 0;}
 * {font-family:Ubuntu, Verdana;}
-h2 {margin-top:60px; font-size:28px; letter-spacing:1px;}
+h2 {margin-top:60px; font-size:24px; letter-spacing:1px;}
+.panel h2 {margin:0; padding:0;}
 .footer {margin-bottom:20px; color:#888; font-size:12px;}
+.panel-heading h2 {cursor:pointer;}
+.panel-heading h2:hover {text-decoration:underline;}
+.panel-heading {padding: 10px 10px 7px;}
 
 @media (min-width: 768px) {
   .language-list {margin-top: 30px;}
