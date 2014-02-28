@@ -36,7 +36,7 @@ define(['jquery', 'app', 'sammy', 'bootstrap'], function(jquery, app, sammy){
         setTimeout(function(){
           var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 20;
           jquery("html, body").animate({ scrollTop: toScroll + "px" });
-        }, 100);
+        }, 200);
 
         $(document.head.getElementsByTagName("title")).text("What's Next? — " + language.name);
       }
