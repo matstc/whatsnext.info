@@ -30,7 +30,7 @@ h2 {margin-top:60px; font-size:22px; letter-spacing:1px;}
 .panel-heading h2:hover {text-decoration:underline;}
 .panel-heading i {font-size:60%; margin-bottom:3px; vertical-align:middle; margin-right:3px;}
 .panel-heading {padding: 10px 10px 2px;}
-.call-to-contribute {text-align:center; color:#888; font-size:12px; margin:10px 0 0 0;}
+.call-to-contribute {text-align:center; color:#888; font-size:12px; margin:30px 0 0 0;}
 
 @media (min-width: 768px) {
   .language-list {margin-top: 30px;}
