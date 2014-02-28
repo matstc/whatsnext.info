@@ -1,7 +1,6 @@
 # Features
 
 ## UI Bugs
-- hide stuff before knockout parses
 - clicking the panel title of github projects does not collapse the panel (the first time)
 
 ## Phone Performance

@@ -27,131 +27,134 @@
       .row.content
         .col-md-2
         .col-md-8
-          .row
-            .col-md-4
-              %ul.nav.nav-pills.nav-stacked.language-list
-                <!-- ko foreach: languages -->
-                %li{'data-bind' => 'css: $root.activeCss($data)'}
-                  %a{'data-bind' => 'attr {href: hash}'}
-                    .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
-                    %span{'data-bind' => 'text: name'}
-                <!-- /ko -->
-                %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
-                  %a{'href' => "#/about"}
-                    .logo{'data-bind' => 'text: "?"'}
-                    %span About
+          %script{'type' => 'text/html', 'id' => 'call-to-contribute-template'}
+            .call-to-contribute<
+              Contribute to these resources
+              %a{'href' => 'https://github.com/matstc/whatsnext.info'}<
+                on github
+              = "."
 
-            .col-md-8
-              %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
-                %h1#section{'data-bind' => 'text: activeLanguage().name'}
-                <!-- ko with: activeLanguage().resources -->
-                %blockquote{'data-bind' => 'html: in_one_sentence'}
-                <!-- /ko -->
+          %div{'data-bind' => 'template {name: "main-template"}'}
 
-                .panel-group
-                  %script{'type' => 'text/html', 'id' => 'call-to-contribute-template'}
-                    .call-to-contribute<
-                      Contribute to these resources
-                      %a{'href' => 'https://github.com/matstc/whatsnext.info'}<
-                        on github
-                      = "."
+          %script{'type' => 'text/html', 'id' => 'main-template'}
+            .row
+              .col-md-4
+                %ul.nav.nav-pills.nav-stacked.language-list
+                  <!-- ko foreach: languages -->
+                  %li{'data-bind' => 'css: $root.activeCss($data)'}
+                    %a{'data-bind' => 'attr {href: hash}'}
+                      .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
+                      %span{'data-bind' => 'text: name'}
+                  <!-- /ko -->
+                  %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
+                    %a{'href' => "#/about"}
+                      .logo{'data-bind' => 'text: "?"'}
+                      %span About
 
+              .col-md-8
+                %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
+                  %h1#section{'data-bind' => 'text: activeLanguage().name'}
                   <!-- ko with: activeLanguage().resources -->
-                  .panel.panel-default
-                    .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}<
-                        %i{'class' => 'glyphicon glyphicon-plus'}
-                        = "Resources For Beginners"
-                    .panel-body.panel-collapse.collapse{'id' => 'for-beginners'}
-                      %div{'data-bind' => 'html: for_beginners'}
-                      %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
-
-                  .panel.panel-default
-                    .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}<
-                        %i{'class' => 'glyphicon glyphicon-plus'}
-                        = "Resources For Experts"
-                    .panel-body.panel-collapse.collapse{'id' => 'for-experts'}
-                      %div{'data-bind' => 'html: for_experts'}
-                      %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
-
-                  .panel.panel-default
-                    .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}<
-                        %i{'class' => 'glyphicon glyphicon-plus'}
-                        = "Interview Questions"
-                    .panel-body.panel-collapse.collapse#interview-questions
-                      %p Here are some questions you should be comfortable with.
-                      .p-ish
-                        %div{'data-bind' => 'html: interview_questions'}
-                      %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
+                  %blockquote{'data-bind' => 'html: in_one_sentence'}
                   <!-- /ko -->
 
-                  .panel.panel-default{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
-                    .panel-heading
-                      %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}<
-                        %i{'class' => 'glyphicon glyphicon-plus'}
-                        = "Most Popular Github Projects"
-                    .panel-body.panel-collapse#repositories
-                      %p<
-                        These projects are written mostly in
-                        %span{'data-bind' => 'text: activeLanguage().name'}<
-                        = "."
-                      %p
-                        Have a look at these projects to hone your skills. Read code. Submit pull requests.
+                  .panel-group
+                    <!-- ko with: activeLanguage().resources -->
+                    .panel.panel-default
+                      .panel-heading
+                        %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}<
+                          %i{'class' => 'glyphicon glyphicon-plus'}
+                          = "Resources For Beginners"
+                      .panel-body.panel-collapse.collapse{'id' => 'for-beginners'}
+                        %div{'data-bind' => 'html: for_beginners'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
 
-                      %ul.repository-list{'data-bind' => 'foreach: repositories'}
-                        %li{'data-bind' => 'striped'}
-                          %img{'data-bind' => 'attr {src:owner.avatar_url}'}
-                          %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
-                          .info
-                            %h3.name
-                              %a{'data-bind' => 'text: name, attr {href: html_url}'}
-                            %span{'data-bind' => 'text: description'}
-                            .star-count
-                              %span.label.label-success
-                                %span{'class' => 'glyphicon glyphicon-star'}
-                                %span{'data-bind' => 'text: stargazers_count'}
+                    .panel.panel-default
+                      .panel-heading
+                        %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}<
+                          %i{'class' => 'glyphicon glyphicon-plus'}
+                          = "Resources For Experts"
+                      .panel-body.panel-collapse.collapse{'id' => 'for-experts'}
+                        %div{'data-bind' => 'html: for_experts'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
 
-              %article{'data-bind' => 'visible: onAbout()'}
-                %h1 Get Learning
-                %p
-                  This is a collection of resources for
-                  %b beginners 
-                  so they know where to look first.
-                  It's also for
-                  %b experts
-                  so they can find resources to dig deeper.
-                  And for
-                  %b freelancers
-                  to figure out what they should learn next.
+                    .panel.panel-default
+                      .panel-heading
+                        %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}<
+                          %i{'class' => 'glyphicon glyphicon-plus'}
+                          = "Interview Questions"
+                      .panel-body.panel-collapse.collapse#interview-questions
+                        %p Here are some questions you should be comfortable with.
+                        .p-ish
+                          %div{'data-bind' => 'html: interview_questions'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
+                    <!-- /ko -->
 
-                %p What's next? Pick a language and get learning!
+                    .panel.panel-default{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
+                      .panel-heading
+                        %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}<
+                          %i{'class' => 'glyphicon glyphicon-plus'}
+                          = "Most Popular Github Projects"
+                      .panel-body.panel-collapse#repositories
+                        %p<
+                          These projects are written mostly in
+                          %span{'data-bind' => 'text: activeLanguage().name'}<
+                          = "."
+                        %p
+                          Have a look at these projects to hone your skills. Read code. Submit pull requests.
 
-                %h2 The Resources
-                %p The resources listed on this site are chosen for their high quality. They also have to be:
-                .p-ish
-                  %ul
-                    %li Free to use
-                    %li Online (no offline books)
-                    %li Weighty (not just a single blog post)
+                        %ul.repository-list{'data-bind' => 'foreach: repositories'}
+                          %li{'data-bind' => 'striped'}
+                            %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+                            %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
+                            .info
+                              %h3.name
+                                %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                              %span{'data-bind' => 'text: description'}
+                              .star-count
+                                %span.label.label-success
+                                  %span{'class' => 'glyphicon glyphicon-star'}
+                                  %span{'data-bind' => 'text: stargazers_count'}
 
-                %p The resource listings are short to maintain quality. They should also be ordered by difficulty so you can pick them up one by one.
+                %article{'data-bind' => 'visible: onAbout()'}
+                  %h1 Get Learning
+                  %p
+                    This is a collection of resources for
+                    %b beginners 
+                    so they know where to look first.
+                    It's also for
+                    %b experts
+                    so they can find resources to dig deeper.
+                    And for
+                    %b freelancers
+                    to figure out what they should learn next.
 
-                %h2 Contributing
-                %p Want to add a new language to the list? Or add your favorite resource?
-                %p
-                  Check out
-                  %a{'href' => 'https://github.com/matstc/whatsnext.info'}
-                    whatsnext.info
-                  on github and submit a pull request.
-                
-                %h2 License
-                %p<
-                  This project is under a
-                  %a{'href' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'}<
-                    Creative Commons BY-NC-SA license
-                  = "."
+                  %p What's next? Pick a language and get learning!
+
+                  %h2 The Resources
+                  %p The resources listed on this site are chosen for their high quality. They also have to be:
+                  .p-ish
+                    %ul
+                      %li Free to use
+                      %li Online (no offline books)
+                      %li Weighty (not just a single blog post)
+
+                  %p The resource listings are short to maintain quality. They should also be ordered by difficulty so you can pick them up one by one.
+
+                  %h2 Contributing
+                  %p Want to add a new language to the list? Or add your favorite resource?
+                  %p
+                    Check out
+                    %a{'href' => 'https://github.com/matstc/whatsnext.info'}
+                      whatsnext.info
+                    on github and submit a pull request.
+                  
+                  %h2 License
+                  %p<
+                    This project is under a
+                    %a{'href' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'}<
+                      Creative Commons BY-NC-SA license
+                    = "."
 
         .col-md-2
 
