@@ -18,7 +18,7 @@ ul li {list-style-type:square;}
 .header h1 {font-size:42px;}
 article h1 {border-bottom: 1px solid #ddd; font-size:38px;}
 article ul {margin-bottom:20px; padding-left:25px;}
-article {padding-bottom:50px;}
+article {padding-bottom:300px;}
 h1, h2 {font-family: Luckiest Guy, Ubuntu, Verdana;}
 p, .p-ish {line-height:24px; font-size:16px;}
 .p-ish ul li {margin: 15px 0;}
