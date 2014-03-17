@@ -22,7 +22,7 @@ define(['jquery', 'app', 'sammy', 'bootstrap'], function(jquery, app, sammy){
     this.get("#/:language", function(){
       app.viewModel.repositories([]);
 
-      if (this.params['language'] !== 'programming'){
+      if (this.params['language'] !== 'programming' && this.params['language'] !== 'rails'){
         jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
       }
 
