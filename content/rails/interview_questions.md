@@ -1,0 +1,8 @@
+- What is CSRF and how do you prevent it?
+- What are strong parameters introduced in Rails 4 and what is the reasoning behind the change?
+- Explain how you test your Rails app. Explain the various test levels available out of the box (controllers/integration/mailers/models).
+- What is a Rails engine?
+- What are different ways you could modularize a huge Rails app?
+- What code would you put in `app/controllers/concern`?
+- What does "keep your controllers thin and your models fat" mean?
+- How would you remove logic from your views?

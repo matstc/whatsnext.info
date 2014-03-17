@@ -18,8 +18,9 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
   var viewModel = new function(){
     var self = this;
     self.languages = [
-      new Language('Ruby', 'rb', '#ff6161'),
-      new Language('JavaScript', 'JS', '#EDCB5C'),
+      new Language('Ruby', 'rb', '#ff2121'),
+      new Language('Rails', '//', '#992222'),
+      new Language('JavaScript', 'JS', '#EDC05C'),
       new Language('CoffeeScript', 'CS', '#222'),
       new Language('Python', 'py', '#242BFF'),
       new Language('CSS', '{}', '#86f'),
