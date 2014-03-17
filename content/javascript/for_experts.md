@@ -7,3 +7,5 @@
 [JavaScript Weekly](http://javascriptweekly.com/): a newsletter to help you keep up to date with the new technologies and frameworks.
 
 [Code Wars](http://www.codewars.com/) to practice some katas.
+
+[JSfiddle](http://jsfiddle.net/) Test your JavaScript, CSS, HTML or CoffeeScript online.

@@ -7,3 +7,9 @@
 [Pry](https://github.com/pry/pry) is a major improvement over IRB.
 
 [Code Wars](http://www.codewars.com/) to practice some katas.
+
+[Rubular](http://rubular.com/) a Ruby regular expression editor
+
+[Ruby Toolbox](https://www.ruby-toolbox.com/) is a complete toolbox to help you choose the right Gem at the right place
+
+[Rubygems](http://rubygems.org/) is a community Gem host
