@@ -2,4 +2,6 @@ An [introduction to the basics](http://code.tutsplus.com/tutorials/rocking-out-w
 
 The [CoffeeScript track](https://www.codeschool.com/courses/coffeescript) at Code School.
 
-And the [official overview](http://coffeescript.org/) is very readable.
+The [official overview](http://coffeescript.org/) is very readable.
+
+The [CoffeeScript Cookbook](http://coffeescriptcookbook.com/) provides useful design patterns once you understand the syntax.
