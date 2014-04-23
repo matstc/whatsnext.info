@@ -5,3 +5,5 @@
 The [ruby koans](http://rubykoans.com/) are entertaining exercises to improve your ruby-fu.
 
 [Ruby Warrior](https://github.com/ryanb/ruby-warrior): a game where you code a little bit of AI to get to the next level.
+
+[Devcasts.io](http://www.devcasts.io/tag/ruby-on-rails/): Ruby on Rails Screencasts
