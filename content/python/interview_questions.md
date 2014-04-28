@@ -2,3 +2,6 @@
 - How does python code compilation work?
 - How can you pass a function around to another function?
 - What are some of the important changes in python 3?
+- What are decorators? Provide examples of when you would use decorators
+- What are differences between lists and tuples?
+- What is PEP8?
