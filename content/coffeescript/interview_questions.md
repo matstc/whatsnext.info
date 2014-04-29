@@ -1,3 +1,4 @@
 - How does inheritance work in CoffeeScript?
 - Explain list comprehensions and give examples.
 - Explain the fat arrow.
+- JavaScript does not have an existential operator. So why would you ever use the operator '?' in CoffeeScript?
