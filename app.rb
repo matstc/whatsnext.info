@@ -2,6 +2,10 @@ require 'sinatra'
 require_relative 'lib/cache'
 require_relative 'lib/resource'
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 github = GithubCache.new
 
 get '/' do 
