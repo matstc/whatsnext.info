@@ -1,3 +1,3 @@
-A basic tutorial at [HTML Dog](http://htmldog.com/guides/css/beginner/).
+Start with a basic tutorial at [HTML Dog](http://htmldog.com/guides/css/beginner/).
 
-The [w3schools tutorial](http://www.w3schools.com/css/default.asp) as an introduction.
+Try the [in-browser tutorials at Dash](http://dash.generalassemb.ly/) to get an overview of HTML/CSS/JavaScript.
