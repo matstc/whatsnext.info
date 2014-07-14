@@ -3,3 +3,5 @@
 The [codecademy Python track](http://www.codecademy.com/tracks/python).
 
 [Python Programming](https://www.khanacademy.org/science/computer-science-subject/computer-science) at Khan Academy is an in-depth introduction with lots of videos.
+
+[Unit-testing](https://github.com/rasbt/python_reference/blob/master/tutorials/unit_testing.md) in Python.
