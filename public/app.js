@@ -22,6 +22,7 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
       new Language('Rails', '//', '#992222'),
       new Language('JavaScript', 'JS', '#EDC05C'),
       new Language('CoffeeScript', 'CS', '#222'),
+      new Language('Meteor', 'M', '#DE4F4F'),
       new Language('Python', 'py', '#242BFF'),
       new Language('CSS', '{}', '#86f'),
       new Language('Programming', '==', '#666')

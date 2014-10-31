@@ -1,0 +1,1 @@
+[Kadira Academy](https://kadira.io/academy/) provides some tools to keep your app at full-speed
