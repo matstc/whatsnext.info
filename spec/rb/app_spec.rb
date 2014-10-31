@@ -39,10 +39,19 @@ describe "Github Cache" do
 end
 
 describe "Github" do
+  it "fetches contributors" do
+    github = Github.new
+    github.send(:define_singleton_method, "open") do |uri|
+      Class.new { def read; $CONTRIBUTORS_DATA; end }.new
+    end
+    contributors = github.contributors "matstc/whatsnext.info"
+    contributors[0]['login'].must_equal 'matstc'
+  end
+
   it "fetches most starred repositories" do
     github = Github.new
     github.send(:define_singleton_method, "open") do |uri|
-      Class.new { def read; $DATA; end }.new
+      Class.new { def read; $STARRED_DATA; end }.new
     end
     most_starred = github.most_starred "ruby"
     most_starred.length.must_equal 1
@@ -56,7 +65,82 @@ describe "Github" do
   end
 end
 
-$DATA=<<EOF
+$CONTRIBUTORS_DATA=<<EOF
+[{"login":"matstc",
+"id":58882,
+"avatar_url":"https://avatars.githubusercontent.com/u/58882?v=2",
+"gravatar_id":"",
+"url":"https://api.github.com/users/matstc",
+"html_url":"https://github.com/matstc",
+"followers_url":"https://api.github.com/users/matstc/followers",
+"following_url":"https://api.github.com/users/matstc/following{/other_user}",
+"gists_url":"https://api.github.com/users/matstc/gists{/gist_id}",
+"starred_url":"https://api.github.com/users/matstc/starred{/owner}{/repo}",
+"subscriptions_url":"https://api.github.com/users/matstc/subscriptions",
+"organizations_url":"https://api.github.com/users/matstc/orgs",
+"repos_url":"https://api.github.com/users/matstc/repos",
+"events_url":"https://api.github.com/users/matstc/events{/privacy}",
+"received_events_url":"https://api.github.com/users/matstc/received_events",
+"type":"User",
+"site_admin":false,
+"contributions":97},
+{"login":"cedricbousmanne",
+"id":176837,
+"avatar_url":"https://avatars.githubusercontent.com/u/176837?v=2",
+"gravatar_id":"",
+"url":"https://api.github.com/users/cedricbousmanne",
+"html_url":"https://github.com/cedricbousmanne",
+"followers_url":"https://api.github.com/users/cedricbousmanne/followers",
+"following_url":"https://api.github.com/users/cedricbousmanne/following{/other_user}",
+"gists_url":"https://api.github.com/users/cedricbousmanne/gists{/gist_id}",
+"starred_url":"https://api.github.com/users/cedricbousmanne/starred{/owner}{/repo}",
+"subscriptions_url":"https://api.github.com/users/cedricbousmanne/subscriptions",
+"organizations_url":"https://api.github.com/users/cedricbousmanne/orgs",
+"repos_url":"https://api.github.com/users/cedricbousmanne/repos",
+"events_url":"https://api.github.com/users/cedricbousmanne/events{/privacy}",
+"received_events_url":"https://api.github.com/users/cedricbousmanne/received_events",
+"type":"User",
+"site_admin":false,
+"contributions":4},
+{"login":"juliawong",
+"id":1804284,
+"avatar_url":"https://avatars.githubusercontent.com/u/1804284?v=2",
+"gravatar_id":"",
+"url":"https://api.github.com/users/juliawong",
+"html_url":"https://github.com/juliawong",
+"followers_url":"https://api.github.com/users/juliawong/followers",
+"following_url":"https://api.github.com/users/juliawong/following{/other_user}",
+"gists_url":"https://api.github.com/users/juliawong/gists{/gist_id}",
+"starred_url":"https://api.github.com/users/juliawong/starred{/owner}{/repo}",
+"subscriptions_url":"https://api.github.com/users/juliawong/subscriptions",
+"organizations_url":"https://api.github.com/users/juliawong/orgs",
+"repos_url":"https://api.github.com/users/juliawong/repos",
+"events_url":"https://api.github.com/users/juliawong/events{/privacy}",
+"received_events_url":"https://api.github.com/users/juliawong/received_events",
+"type":"User",
+"site_admin":false,
+"contributions":1},
+{"login":"slang800",
+"id":1049204,
+"avatar_url":"https://avatars.githubusercontent.com/u/1049204?v=2",
+"gravatar_id":"",
+"url":"https://api.github.com/users/slang800",
+"html_url":"https://github.com/slang800",
+"followers_url":"https://api.github.com/users/slang800/followers",
+"following_url":"https://api.github.com/users/slang800/following{/other_user}",
+"gists_url":"https://api.github.com/users/slang800/gists{/gist_id}",
+"starred_url":"https://api.github.com/users/slang800/starred{/owner}{/repo}",
+"subscriptions_url":"https://api.github.com/users/slang800/subscriptions",
+"organizations_url":"https://api.github.com/users/slang800/orgs",
+"repos_url":"https://api.github.com/users/slang800/repos",
+"events_url":"https://api.github.com/users/slang800/events{/privacy}",
+"received_events_url":"https://api.github.com/users/slang800/received_events",
+"type":"User",
+"site_admin":false,
+"contributions":1}]
+EOF
+
+$STARRED_DATA=<<EOF
 {"total_count":514716,
 "items":[{"id":8514,
 "name":"rails",

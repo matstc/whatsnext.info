@@ -31,6 +31,7 @@ define(['knockout', 'jquery', 'bindings'], function(ko, jquery){
     self.about = new NavItem("#/about");
     self.onAbout = function(){ return self.activeNavItem() === self.about; };
     self.repositories = ko.observableArray([]);
+    self.contributors = ko.observableArray([]);
     self.activeNavItem = ko.observable(null);
     self.activeCss = function(item){ return self.activeNavItem() === item ? "active" : ""; };
 

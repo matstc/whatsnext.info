@@ -1,7 +1,6 @@
 require 'sinatra'
 require_relative 'lib/cache'
 require_relative 'lib/resource'
-require_relative 'lib/whatsnext'
 
 configure :production do
   require 'newrelic_rpm'
@@ -11,6 +10,10 @@ github = GithubCache.new
 
 get '/' do
   haml :index
+end
+
+get '/contributors' do
+  github.contributors('matstc/whatsnext.info').to_json
 end
 
 get '/repositories/:language' do

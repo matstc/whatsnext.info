@@ -154,20 +154,21 @@
                     on github and submit a pull request.
 
                   %h2 Contributors
-                  .row
-                    - Whatsnext.contributors.each do |contributor|
-                      .col-sm-6
-                        .thumbnail
-                          %a{href: contributor.html_url, target: "_blank"}
-                            %img{src: contributor.avatar_url}
-                            .caption
-                              %strong.login=contributor.login
-                              %br
-                              %span.contributions
-                                - if contributor.contributions > 1
-                                  = "#{contributor.contributions} contributions"
-                                - else
-                                  = "#{contributor.contributions} contribution"
+                  .row(data-bind='foreach: contributors')
+                    .col-xs-4
+                      .thumbnail
+                        %a(data-bind='attr: {href: html_url}')
+                          %img(data-bind='attr: {src: avatar_url}')
+                          .caption
+                            %strong.login(data-bind='text: login')
+                            %br
+                            %span.contributions
+                              <!-- ko if: contributions > 1 -->
+                              %span(data-bind='text: contributions + " contributions"')
+                              <!-- /ko -->
+                              <!-- ko if: contributions == 1 -->
+                              %span(data-bind='text: contributions + " contribution"')
+                              <!-- /ko -->
 
 
                   %h2 License

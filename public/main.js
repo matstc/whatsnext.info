@@ -17,6 +17,7 @@ define(['jquery', 'app', 'sammy', 'bootstrap'], function(jquery, app, sammy){
     this.get("#/about", function(){
       app.viewModel.activate(location.hash);
       $(document.head.getElementsByTagName("title")).text("What's Next? — About");
+      jquery.getJSON('/contributors', app.viewModel.contributors);
     });
 
     this.get("#/:language", function(){
