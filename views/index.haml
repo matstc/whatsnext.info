@@ -124,7 +124,7 @@
                   %h1 Get Learning
                   %p
                     This is a collection of resources for
-                    %b beginners 
+                    %b beginners
                     so they know where to look first.
                     It's also for
                     %b experts
@@ -152,7 +152,24 @@
                     %a{'href' => 'https://github.com/matstc/whatsnext.info'}
                       whatsnext.info
                     on github and submit a pull request.
-                  
+
+                  %h2 Contributors
+                  .row
+                    - Whatsnext.contributors.each do |contributor|
+                      .col-sm-6
+                        .thumbnail
+                          %a{href: contributor.html_url, target: "_blank"}
+                            %img{src: contributor.avatar_url}
+                            .caption
+                              %strong.login=contributor.login
+                              %br
+                              %span.contributions
+                                - if contributor.contributions > 1
+                                  = "#{contributor.contributions} contributions"
+                                - else
+                                  = "#{contributor.contributions} contribution"
+
+
                   %h2 License
                   %p<
                     This project is under a

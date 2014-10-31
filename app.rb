@@ -1,6 +1,7 @@
 require 'sinatra'
 require_relative 'lib/cache'
 require_relative 'lib/resource'
+require_relative 'lib/whatsnext'
 
 configure :production do
   require 'newrelic_rpm'
@@ -8,7 +9,7 @@ end
 
 github = GithubCache.new
 
-get '/' do 
+get '/' do
   haml :index
 end
 
