@@ -9,3 +9,5 @@
 [Code Wars](http://www.codewars.com/) to practice some katas.
 
 [JSfiddle](http://jsfiddle.net/) Test your JavaScript, CSS, HTML or CoffeeScript online.
+
+[A bunch of free books](http://jsbooks.revolunet.com/) are available at JS Books.
