@@ -1,5 +1,7 @@
 [A re-introduction to JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) to re-learn The Way.
 
+[You Don't Know JS](https://github.com/getify/You-Dont-Know-JS) is a series of really focused books on various topics.
+
 [Angus Croll's javascript  blog](http://javascriptweblog.wordpress.com/) contains lots of in-depth articles.
 
 [Crockford's Resources](http://www.crockford.com/javascript/) for a plethora of advanced material.
