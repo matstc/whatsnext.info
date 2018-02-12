@@ -1,6 +1,8 @@
-var jsdom = require("jsdom").jsdom;
-var document = jsdom("<html><head></head><body>hello world</body></html>");
-var window = document.parentWindow; 
+var jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+
+const { document } = (new JSDOM('<html><head></head><body>hello world</body></html>')).window;
+global.document = document;
 
 /*!
  * jQuery JavaScript Library v2.1.0
