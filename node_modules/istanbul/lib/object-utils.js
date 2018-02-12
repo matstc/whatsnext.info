@@ -33,6 +33,7 @@
  * to this module's exports.
  *
  * @class ObjectUtils
+ * @module main
  * @static
  */
 (function (isNode) {
@@ -154,6 +155,7 @@
      *          statements: statementMetrics,
      *          functions: functionMetrics,
      *          branches: branchMetrics
+     *          linesCovered: lineCoveredCount
      *      }
      *
      *  Each individual metric object looks as follows:
@@ -193,7 +195,8 @@
                 covered: 0,
                 skipped: 0,
                 pct: 'Unknown'
-            }
+            },
+            linesCovered: {}
         };
     }
     /**
@@ -212,6 +215,7 @@
         ret.functions = computeSimpleTotals(fileCoverage, 'f', 'fnMap');
         ret.statements = computeSimpleTotals(fileCoverage, 's', 'statementMap');
         ret.branches = computeBranchTotals(fileCoverage);
+        ret.linesCovered = fileCoverage.l;
         return ret;
     }
     /**
@@ -267,6 +271,15 @@
                         ret[key].total += obj[key].total;
                         ret[key].covered += obj[key].covered;
                         ret[key].skipped += obj[key].skipped;
+                    });
+
+                    // keep track of all lines we have coverage for.
+                    Object.keys(obj.linesCovered).forEach(function (key) {
+                        if (!ret.linesCovered[key]) {
+                            ret.linesCovered[key] = obj.linesCovered[key];
+                        } else {
+                            ret.linesCovered[key] += obj.linesCovered[key];
+                        }
                     });
                 }
             };
@@ -345,6 +358,51 @@
         return ret;
     }
 
+    /**
+     * Creates new file coverage object with incremented hits count
+     * on skipped statements, branches and functions
+     *
+     * @method incrementIgnoredTotals
+     * @static
+     * @param {Object} cov File coverage object
+     * @return {Object} New file coverage object
+     */
+    function incrementIgnoredTotals(cov) {
+        //TODO: This may be slow in the browser and may break in older browsers
+        //      Look into using a library that works in Node and the browser
+        var fileCoverage = JSON.parse(JSON.stringify(cov));
+
+        [
+            {mapKey: 'statementMap', hitsKey: 's'},
+            {mapKey: 'branchMap', hitsKey: 'b'},
+            {mapKey: 'fnMap', hitsKey: 'f'}
+        ].forEach(function (keys) {
+            Object.keys(fileCoverage[keys.mapKey])
+                .forEach(function (key) {
+                    var map = fileCoverage[keys.mapKey][key];
+                    var hits = fileCoverage[keys.hitsKey];
+
+                    if (keys.mapKey === 'branchMap') {
+                        var locations = map.locations;
+
+                        locations.forEach(function (location, index) {
+                            if (hits[key][index] === 0 && location.skip) {
+                                hits[key][index] = 1;
+                            }
+                        });
+
+                        return;
+                    }
+
+                    if (hits[key] === 0 && map.skip) {
+                        hits[key] = 1;
+                    }
+                });
+            });
+
+        return fileCoverage;
+    }
+
     var exportables = {
         addDerivedInfo: addDerivedInfo,
         addDerivedInfoForFile: addDerivedInfoForFile,
@@ -354,7 +412,8 @@
         summarizeCoverage: summarizeCoverage,
         mergeFileCoverage: mergeFileCoverage,
         mergeSummaryObjects: mergeSummaryObjects,
-        toYUICoverage: toYUICoverage
+        toYUICoverage: toYUICoverage,
+        incrementIgnoredTotals: incrementIgnoredTotals
     };
 
     /* istanbul ignore else: windows */
@@ -364,4 +423,3 @@
         window.coverageUtils = exportables;
     }
 }(typeof module !== 'undefined' && typeof module.exports !== 'undefined' && typeof exports !== 'undefined'));
-

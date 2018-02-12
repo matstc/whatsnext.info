@@ -5,6 +5,7 @@
 
 var path = require('path'),
     mkdirp = require('mkdirp'),
+    once = require('once'),
     async = require('async'),
     fs = require('fs'),
     filesFor = require('../util/file-matcher').filesFor,
@@ -15,12 +16,11 @@ var path = require('path'),
     util = require('util'),
     Command = require('./index'),
     Collector = require('../collector'),
-    flowControl = require('../util/flow-control'),
-    configuration = require('../configuration'),
+    configuration = require('../config'),
     verbose;
 
 
-/**
+/*
  * Chunk file size to use when reading non JavaScript files in memory
  * and copying them over when using complete-copy flag.
  */
@@ -52,16 +52,16 @@ BaselineCollector.prototype = {
 };
 
 
-function processFiles(instrumenter, inputDir, outputDir, relativeNames) {
+function processFiles(instrumenter, inputDir, outputDir, relativeNames, extensions) {
     var processor = function (name, callback) {
             var inputFile = path.resolve(inputDir, name),
                 outputFile = path.resolve(outputDir, name),
                 inputFileExtenstion = path.extname(inputFile),
-                isJavaScriptFile = (inputFileExtenstion === '.js'),
+                isJavaScriptFile = extensions.indexOf(inputFileExtenstion) > -1,
                 oDir = path.dirname(outputFile),
                 readStream, writeStream;
 
-            callback = flowControl.callOnce(callback);
+            callback = once(callback);
             mkdirp.sync(oDir);
 
             if (fs.statSync(inputFile).isDirectory()) {
@@ -143,7 +143,7 @@ Command.mix(InstrumentCommand, {
                 formatOption('--config <path-to-config>', 'the configuration file to use, defaults to .istanbul.yml'),
                 formatOption('--output <file-or-dir>', 'The output file or directory. This is required when the input is a directory, ' +
                     'defaults to standard output when input is a file'),
-                formatOption('-x <exclude-pattern> [-x <exclude-pattern>]', 'one or more fileset patterns (e.g. "**/vendor/**" to ignore all files ' +
+                formatOption('-x <exclude-pattern> [-x <exclude-pattern>]', 'one or more glob patterns (e.g. "**/vendor/**" to ignore all files ' +
                     'under a vendor directory). Also see the --default-excludes option'),
                 formatOption('--variable <global-coverage-variable-name>', 'change the variable name of the global coverage variable from the ' +
                     'default value of `__coverage__` to something else'),
@@ -152,7 +152,8 @@ Command.mix(InstrumentCommand, {
                 formatOption('--[no-]preserve-comments', 'remove / preserve comments in the output, defaults to false'),
                 formatOption('--[no-]complete-copy', 'also copy non-javascript files to the ouput directory as is, defaults to false'),
                 formatOption('--save-baseline', 'produce a baseline coverage.json file out of all files instrumented'),
-                formatOption('--baseline-file <file>', 'filename of baseline file, defaults to coverage/coverage-baseline.json')
+                formatOption('--baseline-file <file>', 'filename of baseline file, defaults to coverage/coverage-baseline.json'),
+                formatOption('--es-modules', 'source code uses es import/export module syntax')
             ].join('\n\n') + '\n');
         console.error('\n');
     },
@@ -170,7 +171,8 @@ Command.mix(InstrumentCommand, {
                 'save-baseline': Boolean,
                 'baseline-file': path,
                 'embed-source': Boolean,
-                'preserve-comments': Boolean
+                'preserve-comments': Boolean,
+                'es-modules': Boolean
             },
             opts = nopt(template, { v : '--verbose' }, args, 0),
             overrides = {
@@ -183,7 +185,8 @@ Command.mix(InstrumentCommand, {
                     excludes: opts.x,
                     'complete-copy': opts['complete-copy'],
                     'save-baseline': opts['save-baseline'],
-                    'baseline-file': opts['baseline-file']
+                    'baseline-file': opts['baseline-file'],
+                    'es-modules': opts['es-modules']
                 }
             },
             config = configuration.loadFile(opts.config, overrides),
@@ -207,21 +210,24 @@ Command.mix(InstrumentCommand, {
             includes = ['**/*'];
         }
         else {
-            includes = ['**/*.js'];
+            includes = iOpts.extensions().map(function(ext) {
+                return '**/*' + ext;
+            });
         }
 
         instrumenter = new Instrumenter({
             coverageVariable: iOpts.variable(),
             embedSource: iOpts.embedSource(),
             noCompact: !iOpts.compact(),
-            preserveComments: iOpts.preserveComments()
+            preserveComments: iOpts.preserveComments(),
+            esModules: iOpts.esModules()
         });
 
         if (needBaseline) {
             mkdirp.sync(path.dirname(baselineFile));
             instrumenter = new BaselineCollector(instrumenter);
             process.on('exit', function () {
-                util.puts('Saving baseline coverage at: ' + baselineFile);
+                console.log('Saving baseline coverage at: ' + baselineFile);
                 fs.writeFileSync(baselineFile, JSON.stringify(instrumenter.getCoverage()), 'utf8');
             });
         }
@@ -239,7 +245,7 @@ Command.mix(InstrumentCommand, {
                 relative: true
             }, function (err, files) {
                 if (err) { return callback(err); }
-                processFiles(instrumenter, file, output, files);
+                processFiles(instrumenter, file, output, files, iOpts.extensions());
             });
         } else {
             if (output) {

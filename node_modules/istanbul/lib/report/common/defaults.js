@@ -2,6 +2,10 @@
  Copyright (c) 2013, Yahoo! Inc.  All rights reserved.
  Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
+
+var Report  = require('../index');
+var supportsColor = require('supports-color');
+
 module.exports = {
     watermarks: function () {
         return {
@@ -20,14 +24,28 @@ module.exports = {
 
     colorize: function (str, clazz) {
         /* istanbul ignore if: untestable in batch mode */
-        if (process.stdout.isTTY) {
-            switch (clazz) {
-                case 'low' : str = '\033[91m' + str + '\033[0m'; break;
-                case 'medium': str = '\033[93m' + str + '\033[0m'; break;
-                case 'high': str = '\033[92m' + str + '\033[0m'; break;
-            }
+        var colors = {
+            low: '31;1',
+            medium: '33;1',
+            high: '32;1'
+        };
+        
+        if (supportsColor && colors[clazz]) {
+            return '\u001b[' + colors[clazz] + 'm' + str + '\u001b[0m';
         }
         return str;
+    },
+
+    defaultReportConfig: function () {
+        var cfg = {};
+        Report.getReportList().forEach(function (type) {
+            var rpt = Report.create(type),
+                c = rpt.getDefaultConfig();
+            if (c) {
+                cfg[type] = c;
+            }
+        });
+        return cfg;
     }
 };
 

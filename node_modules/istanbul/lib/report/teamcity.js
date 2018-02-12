@@ -4,6 +4,7 @@
  */
 
 var path = require('path'),
+    util = require('util'),
     mkdirp = require('mkdirp'),
     fs = require('fs'),
     utils = require('../object-utils'),
@@ -19,6 +20,7 @@ var path = require('path'),
  *
  * @class TeamcityReport
  * @extends Report
+ * @module report
  * @constructor
  * @param {Object} opts optional
  * @param {String} [opts.dir] the directory in which to the text coverage report will be written, when writing to a file
@@ -29,15 +31,23 @@ function TeamcityReport(opts) {
     opts = opts || {};
     this.dir = opts.dir || process.cwd();
     this.file = opts.file;
+    this.blockName = opts.blockName || this.getDefaultConfig().blockName;
 }
 
 TeamcityReport.TYPE = 'teamcity';
+util.inherits(TeamcityReport, Report);
 
 function lineForKey(value, teamcityVar) {
     return '##teamcity[buildStatisticValue key=\'' + teamcityVar + '\' value=\'' + value + '\']';
 }
 
 Report.mix(TeamcityReport, {
+    synopsis: function () {
+        return 'report with system messages that can be interpreted with TeamCity';
+    },
+    getDefaultConfig: function () {
+        return { file: null , blockName: 'Code Coverage Summary'};
+    },
     writeReport: function (collector /*, sync */) {
         var summaries = [],
             finalSummary,
@@ -51,7 +61,7 @@ Report.mix(TeamcityReport, {
         finalSummary = utils.mergeSummaryObjects.apply(null, summaries);
 
         lines.push('');
-        lines.push('##teamcity[blockOpened name=\'Code Coverage Summary\']');
+        lines.push('##teamcity[blockOpened name=\''+ this.blockName +'\']');
 
         //Statements Covered
         lines.push(lineForKey(finalSummary.statements.pct, 'CodeCoverageB'));
@@ -66,16 +76,16 @@ Report.mix(TeamcityReport, {
         lines.push(lineForKey(finalSummary.lines.total, 'CodeCoverageAbsLTotal'));
         lines.push(lineForKey(finalSummary.lines.pct, 'CodeCoverageL'));
 
-        lines.push('##teamcity[blockClosed name=\'Code Coverage Summary\']');
+        lines.push('##teamcity[blockClosed name=\''+ this.blockName +'\']');
 
         text = lines.join('\n');
         if (this.file) {
             mkdirp.sync(this.dir);
-            console.log(path.join(this.dir, this.file));
             fs.writeFileSync(path.join(this.dir, this.file), text, 'utf8');
         } else {
             console.log(text);
         }
+        this.emit('done');
     }
 });
 

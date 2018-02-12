@@ -1,6 +1,6 @@
 {
-  "name" : "whatsnext.info",
-  "dependencies" : {
+  "name": "whatsnext.info",
+  "dependencies": {
     "requirejs": "*",
     "mocha": "*",
     "jsdom": "*",
@@ -8,4 +8,3 @@
     "istanbul": "*"
   }
 }
-

@@ -4,10 +4,9 @@
  */
 
 /*jshint maxlen: 300 */
-var handlebars = require('handlebars'),
+var handlebars = require('handlebars').create(),
     defaults = require('./common/defaults'),
     path = require('path'),
-    SEP = path.sep || '/',
     fs = require('fs'),
     util = require('util'),
     FileWriter = require('../util/file-writer'),
@@ -19,17 +18,16 @@ var handlebars = require('handlebars'),
     templateFor = function (name) { return handlebars.compile(fs.readFileSync(path.resolve(__dirname, 'templates', name + '.txt'), 'utf8')); },
     headerTemplate = templateFor('head'),
     footerTemplate = templateFor('foot'),
-    pathTemplate = handlebars.compile('<div class="path">{{{html}}}</div>'),
     detailTemplate = handlebars.compile([
         '<tr>',
-        '<td class="line-count">{{#show_lines}}{{maxLines}}{{/show_lines}}</td>',
-        '<td class="line-coverage">{{#show_line_execution_counts fileCoverage}}{{maxLines}}{{/show_line_execution_counts}}</td>',
+        '<td class="line-count quiet">{{#show_lines}}{{maxLines}}{{/show_lines}}</td>',
+        '<td class="line-coverage quiet">{{#show_line_execution_counts fileCoverage}}{{maxLines}}{{/show_line_execution_counts}}</td>',
         '<td class="text"><pre class="prettyprint lang-js">{{#show_code structured}}{{/show_code}}</pre></td>',
         '</tr>\n'
     ].join('')),
     summaryTableHeader = [
-        '<div class="coverage-summary">',
-        '<table>',
+        '<div class="pad1">',
+        '<table class="coverage-summary">',
         '<thead>',
         '<tr>',
         '   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>',
@@ -49,15 +47,15 @@ var handlebars = require('handlebars'),
     summaryLineTemplate = handlebars.compile([
         '<tr>',
         '<td class="file {{reportClasses.statements}}" data-value="{{file}}"><a href="{{output}}">{{file}}</a></td>',
-        '<td data-value="{{metrics.statements.pct}}" class="pic {{reportClasses.statements}}">{{#show_picture}}{{metrics.statements.pct}}{{/show_picture}}</td>',
+        '<td data-value="{{metrics.statements.pct}}" class="pic {{reportClasses.statements}}"><div class="chart">{{#show_picture}}{{metrics.statements.pct}}{{/show_picture}}</div></td>',
         '<td data-value="{{metrics.statements.pct}}" class="pct {{reportClasses.statements}}">{{metrics.statements.pct}}%</td>',
-        '<td data-value="{{metrics.statements.total}}" class="abs {{reportClasses.statements}}">({{metrics.statements.covered}}&nbsp;/&nbsp;{{metrics.statements.total}})</td>',
+        '<td data-value="{{metrics.statements.total}}" class="abs {{reportClasses.statements}}">{{metrics.statements.covered}}/{{metrics.statements.total}}</td>',
         '<td data-value="{{metrics.branches.pct}}" class="pct {{reportClasses.branches}}">{{metrics.branches.pct}}%</td>',
-        '<td data-value="{{metrics.branches.total}}" class="abs {{reportClasses.branches}}">({{metrics.branches.covered}}&nbsp;/&nbsp;{{metrics.branches.total}})</td>',
+        '<td data-value="{{metrics.branches.total}}" class="abs {{reportClasses.branches}}">{{metrics.branches.covered}}/{{metrics.branches.total}}</td>',
         '<td data-value="{{metrics.functions.pct}}" class="pct {{reportClasses.functions}}">{{metrics.functions.pct}}%</td>',
-        '<td data-value="{{metrics.functions.total}}" class="abs {{reportClasses.functions}}">({{metrics.functions.covered}}&nbsp;/&nbsp;{{metrics.functions.total}})</td>',
+        '<td data-value="{{metrics.functions.total}}" class="abs {{reportClasses.functions}}">{{metrics.functions.covered}}/{{metrics.functions.total}}</td>',
         '<td data-value="{{metrics.lines.pct}}" class="pct {{reportClasses.lines}}">{{metrics.lines.pct}}%</td>',
-        '<td data-value="{{metrics.lines.total}}" class="abs {{reportClasses.lines}}">({{metrics.lines.covered}}&nbsp;/&nbsp;{{metrics.lines.total}})</td>',
+        '<td data-value="{{metrics.lines.total}}" class="abs {{reportClasses.lines}}">{{metrics.lines.covered}}/{{metrics.lines.total}}</td>',
         '</tr>\n'
     ].join('\n\t')),
     summaryTableFooter = [
@@ -83,11 +81,17 @@ handlebars.registerHelper('show_picture', function (opts) {
         }
         num = Math.floor(num);
         rest = 100 - num;
-        return '<span class="cover-fill' + cls + '" style="width: ' + num + 'px;"></span>' +
-            '<span class="cover-empty" style="width:' + rest + 'px;"></span>';
+        return '<div class="cover-fill' + cls + '" style="width: ' + num + '%;"></div>' +
+            '<div class="cover-empty" style="width:' + rest + '%;"></div>';
     } else {
         return '';
     }
+});
+
+handlebars.registerHelper('if_has_ignores', function (metrics, opts) {
+    return (metrics.statements.skipped +
+        metrics.functions.skipped +
+        metrics.branches.skipped) === 0 ? '' : opts.fn(this);
 });
 
 handlebars.registerHelper('show_ignores', function (metrics) {
@@ -135,7 +139,7 @@ handlebars.registerHelper('show_line_execution_counts', function (context, opts)
         if (lines.hasOwnProperty(lineNumber)) {
             if (lines[lineNumber] > 0) {
                 covered = 'yes';
-                value = lines[lineNumber];
+                value = lines[lineNumber] + '×';
             } else {
                 covered = 'no';
             }
@@ -172,7 +176,9 @@ function annotateLines(fileCoverage, structuredText) {
     if (!lineStats) { return; }
     Object.keys(lineStats).forEach(function (lineNumber) {
         var count = lineStats[lineNumber];
-        structuredText[lineNumber].covered = count > 0 ? 'yes' : 'no';
+        if (structuredText[lineNumber]) {
+          structuredText[lineNumber].covered = count > 0 ? 'yes' : 'no';
+        }
     });
     structuredText.forEach(function (item) {
         if (item.covered === null) {
@@ -306,6 +312,20 @@ function getReportClass(stats, watermark) {
     }
 }
 
+function cleanPath(name) {
+    var SEP = path.sep || '/';
+    return (SEP !== '/') ? name.split(SEP).join('/') : name;
+}
+
+function isEmptySourceStore(sourceStore) {
+    if (!sourceStore) {
+        return true;
+    }
+
+    var cache = sourceStore.sourceCache;
+    return cache && !Object.keys(cache).length;
+}
+
 /**
  * a `Report` implementation that produces HTML coverage reports.
  *
@@ -317,6 +337,7 @@ function getReportClass(stats, watermark) {
  *
  * @class HtmlReport
  * @extends Report
+ * @module report
  * @constructor
  * @param {Object} opts optional
  * @param {String} [opts.dir] the directory in which to generate reports. Defaults to `./html-report`
@@ -325,7 +346,8 @@ function HtmlReport(opts) {
     Report.call(this);
     this.opts = opts || {};
     this.opts.dir = this.opts.dir || path.resolve(process.cwd(), 'html-report');
-    this.opts.sourceStore = this.opts.sourceStore || Store.create('fslookup');
+    this.opts.sourceStore = isEmptySourceStore(this.opts.sourceStore) ?
+        Store.create('fslookup') : this.opts.sourceStore;
     this.opts.linkMapper = this.opts.linkMapper || this.standardLinkMapper();
     this.opts.writer = this.opts.writer || null;
     this.opts.templateData = { datetime: Date() };
@@ -336,6 +358,10 @@ HtmlReport.TYPE = 'html';
 util.inherits(HtmlReport, Report);
 
 Report.mix(HtmlReport, {
+
+    synopsis: function () {
+        return 'Navigable HTML coverage report for every file and directory';
+    },
 
     getPathHtml: function (node, linkMapper) {
         var parent = node.parent,
@@ -350,11 +376,11 @@ Report.mix(HtmlReport, {
 
         for (i = 0; i < nodePath.length; i += 1) {
             linkPath.push('<a href="' + linkMapper.ancestor(node, i + 1) + '">' +
-                (nodePath[i].relativeName || 'All files') + '</a>');
+                (cleanPath(nodePath[i].relativeName) || 'all files') + '</a>');
         }
         linkPath.reverse();
-        return linkPath.length > 0 ? linkPath.join(' &#187; ') + ' &#187; ' +
-            node.displayShortName() : '';
+        return linkPath.length > 0 ? linkPath.join(' / ') + ' ' +
+            cleanPath(node.displayShortName()) : '/';
     },
 
     fillTemplate: function (node, templateData) {
@@ -364,7 +390,14 @@ Report.mix(HtmlReport, {
         templateData.entity = node.name || 'All files';
         templateData.metrics = node.metrics;
         templateData.reportClass = getReportClass(node.metrics.statements, opts.watermarks.statements);
-        templateData.pathHtml = pathTemplate({ html: this.getPathHtml(node, linkMapper) });
+        templateData.pathHtml = this.getPathHtml(node, linkMapper);
+        templateData.base = {
+        	css: linkMapper.asset(node, 'base.css')
+        };
+        templateData.sorter = {
+            js: linkMapper.asset(node, 'sorter.js'),
+            image: linkMapper.asset(node, 'sort-arrow-sprite.png')
+        };
         templateData.prettify = {
             js: linkMapper.asset(node, 'prettify.js'),
             css: linkMapper.asset(node, 'prettify.css')
@@ -429,7 +462,7 @@ Report.mix(HtmlReport, {
                 data = {
                     metrics: metrics,
                     reportClasses: reportClasses,
-                    file: child.displayShortName(),
+                    file: cleanPath(child.displayShortName()),
                     output: linkMapper.fromParent(child)
                 };
             writer.write(summaryLineTemplate(data) + '\n');
@@ -462,30 +495,22 @@ Report.mix(HtmlReport, {
     standardLinkMapper: function () {
         return {
             fromParent: function (node) {
-                var i = 0,
-                    relativeName = node.relativeName,
-                    ch;
-                if (SEP !== '/') {
-                    relativeName = '';
-                    for (i = 0; i < node.relativeName.length; i += 1) {
-                        ch = node.relativeName.charAt(i);
-                        if (ch === SEP) {
-                            relativeName += '/';
-                        } else {
-                            relativeName += ch;
-                        }
-                    }
-                }
+                var relativeName = cleanPath(node.relativeName);
+
                 return node.kind === 'dir' ? relativeName + 'index.html' : relativeName + '.html';
             },
             ancestorHref: function (node, num) {
                 var href = '',
+                    notDot = function(part) {
+                        return part !== '.';
+                    },
                     separated,
                     levels,
                     i,
                     j;
+
                 for (i = 0; i < num; i += 1) {
-                    separated = node.relativeName.split(SEP);
+                    separated = cleanPath(node.relativeName).split('/').filter(notDot);
                     levels = separated.length - 1;
                     for (j = 0; j < levels; j += 1) {
                         href += '../';
@@ -511,26 +536,35 @@ Report.mix(HtmlReport, {
             dir = opts.dir,
             summarizer = new TreeSummarizer(),
             writer = opts.writer || new FileWriter(sync),
-            tree;
+            that = this,
+            tree,
+            copyAssets = function (subdir) {
+                var srcDir = path.resolve(__dirname, '..', 'assets', subdir);
+                fs.readdirSync(srcDir).forEach(function (f) {
+                    var resolvedSource = path.resolve(srcDir, f),
+                        resolvedDestination = path.resolve(dir, f),
+                        stat = fs.statSync(resolvedSource);
+
+                    if (stat.isFile()) {
+                        if (opts.verbose) {
+                            console.log('Write asset: ' + resolvedDestination);
+                        }
+                        writer.copyFile(resolvedSource, resolvedDestination);
+                    }
+                });
+            };
 
         collector.files().forEach(function (key) {
             summarizer.addFileCoverageSummary(key, utils.summarizeFileCoverage(collector.fileCoverageFor(key)));
         });
         tree = summarizer.getTreeSummary();
-        fs.readdirSync(path.resolve(__dirname, '..', 'vendor')).forEach(function (f) {
-            var resolvedSource = path.resolve(__dirname, '..', 'vendor', f),
-                resolvedDestination = path.resolve(dir, f),
-                stat = fs.statSync(resolvedSource);
-
-            if (stat.isFile()) {
-                if (opts.verbose) {
-                    console.log('Write asset: ' + resolvedDestination);
-                }
-                writer.copyFile(resolvedSource, resolvedDestination);
-            }
+        [ '.', 'vendor'].forEach(function (subdir) {
+            copyAssets(subdir);
         });
+        writer.on('done', function () { that.emit('done'); });
         //console.log(JSON.stringify(tree.root, undefined, 4));
         this.writeFiles(writer, tree.root, dir, collector);
+        writer.done();
     }
 });
 
