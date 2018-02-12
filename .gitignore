@@ -2,4 +2,4 @@
 *.swo
 *.swn
 coverage/
-node_modules/jsdom
+/node_modules
