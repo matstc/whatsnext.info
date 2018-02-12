@@ -8,3 +8,7 @@ gem 'pry'
 gem 'timeout_cache'
 gem 'kramdown'
 gem 'newrelic_rpm'
+
+group :test do
+  gem 'minitest'
+end

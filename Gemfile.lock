@@ -6,6 +6,7 @@ GEM
       tilt
     kramdown (1.3.1)
     method_source (0.8.2)
+    minitest (5.11.3)
     newrelic_rpm (3.8.1.221)
     pry (0.9.12.5)
       coderay (~> 1.0)
@@ -28,6 +29,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   kramdown
+  minitest
   newrelic_rpm
   pry
   sinatra
