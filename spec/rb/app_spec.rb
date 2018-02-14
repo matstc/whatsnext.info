@@ -4,68 +4,68 @@ require_relative '../../lib/resource'
 require 'minitest/spec'
 require 'minitest/autorun'
 
-describe "Resource" do
-  it "should convert markdown to html" do
-    Resource.directory = "spec/content"
+describe 'Resource' do
+  it 'should convert markdown to html' do
+    Resource.directory = 'spec/content'
     ruby = Resource.fetch(:ruby)
     ruby['in_one_sentence'].must_equal "<p>Swiss-army knife</p>\n"
-    ruby['for_beginners'].must_equal %{<p><a href="http://tryruby.org">Try Ruby</a></p>\n}
-    ruby['for_experts'].must_equal %{<p><a href="http://rubyweekly.com">Ruby Weekly</a></p>\n}
+    ruby['for_beginners'].must_equal %(<p><a href="http://tryruby.org">Try Ruby</a></p>\n)
+    ruby['for_experts'].must_equal %(<p><a href="http://rubyweekly.com">Ruby Weekly</a></p>\n)
   end
 end
 
-describe "Github Cache" do
-  it "caches for 2 seconds" do
+describe 'Github Cache' do
+  it 'caches for 2 seconds' do
     cache = GithubCache.new timeout: 2
     github = Github.new
-    cache.instance_variable_set("@github", github)
+    cache.instance_variable_set('@github', github)
     calls = 0
-    github.send(:define_singleton_method, "most_starred") do |language|
+    github.send(:define_singleton_method, 'most_starred') do |_language|
       calls += 1
     end
 
-    cache.most_starred "ruby"
+    cache.most_starred 'ruby'
     calls.must_equal 1
-    cache.most_starred "ruby"
+    cache.most_starred 'ruby'
     calls.must_equal 1
-    cache.most_starred "javascript"
+    cache.most_starred 'javascript'
     calls.must_equal 2
-    cache.most_starred "javascript"
+    cache.most_starred 'javascript'
     calls.must_equal 2
     sleep 2
-    cache.most_starred "ruby"
+    cache.most_starred 'ruby'
     calls.must_equal 3
   end
 end
 
-describe "Github" do
-  it "fetches contributors" do
+describe 'Github' do
+  it 'fetches contributors' do
     github = Github.new
-    github.send(:define_singleton_method, "open") do |uri|
+    github.send(:define_singleton_method, 'open') do |_uri, _headers|
       Class.new { def read; $CONTRIBUTORS_DATA; end }.new
     end
-    contributors = github.contributors "matstc/whatsnext.info"
+    contributors = github.contributors 'matstc/whatsnext.info'
     contributors[0]['login'].must_equal 'matstc'
   end
 
-  it "fetches most starred repositories" do
+  it 'fetches most starred repositories' do
     github = Github.new
-    github.send(:define_singleton_method, "open") do |uri|
+    github.send(:define_singleton_method, 'open') do |_uri|
       Class.new { def read; $STARRED_DATA; end }.new
     end
-    most_starred = github.most_starred "ruby"
+    most_starred = github.most_starred 'ruby'
     most_starred.length.must_equal 1
     rails = most_starred[0]
-    rails['name'].must_equal "rails"
-    rails['full_name'].must_equal "rails/rails"
-    rails['owner']['avatar_url'].must_equal "https://gravatar.com/avatar/30f39a09e233e8369dddf6feb4be0308?d=https%3A%2F%2Fidenticons.github.com%2Ff42a37d114a480b6b57b60ea9a14a9d2.png&r=x"
-    rails['stargazers_count'].must_equal 20835
-    rails['html_url'].must_equal "https://github.com/rails/rails"
-    rails['description'].must_equal "Ruby on Rails"
+    rails['name'].must_equal 'rails'
+    rails['full_name'].must_equal 'rails/rails'
+    rails['owner']['avatar_url'].must_equal 'https://gravatar.com/avatar/30f39a09e233e8369dddf6feb4be0308?d=https%3A%2F%2Fidenticons.github.com%2Ff42a37d114a480b6b57b60ea9a14a9d2.png&r=x'
+    rails['stargazers_count'].must_equal 20_835
+    rails['html_url'].must_equal 'https://github.com/rails/rails'
+    rails['description'].must_equal 'Ruby on Rails'
   end
 end
 
-$CONTRIBUTORS_DATA=<<EOF
+$CONTRIBUTORS_DATA = <<EOF
 [{"login":"matstc",
 "id":58882,
 "avatar_url":"https://avatars.githubusercontent.com/u/58882?v=2",
@@ -140,7 +140,7 @@ $CONTRIBUTORS_DATA=<<EOF
 "contributions":1}]
 EOF
 
-$STARRED_DATA=<<EOF
+$STARRED_DATA = <<EOF
 {"total_count":514716,
 "items":[{"id":8514,
 "name":"rails",
