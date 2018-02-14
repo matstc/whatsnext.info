@@ -2,7 +2,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     coderay (1.0.9)
-    haml (4.0.5)
+    haml (5.0.4)
+      temple (>= 0.8.0)
       tilt
     kramdown (1.3.1)
     method_source (0.8.2)
@@ -20,6 +21,7 @@ GEM
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
     slop (3.4.6)
+    temple (0.8.0)
     tilt (1.4.1)
     timeout_cache (0.0.2)
 
