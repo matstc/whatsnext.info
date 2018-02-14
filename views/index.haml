@@ -30,7 +30,7 @@
           %script{'type' => 'text/html', 'id' => 'call-to-contribute-template'}
             .call-to-contribute<
               Contribute to these resources
-              %a{'href' => 'https://github.com/matstc/whatsnext.info'}<
+              %a{href: 'https://github.com/matstc/whatsnext.info'}<
                 on github
               = "."
 
@@ -47,7 +47,7 @@
                       %span{'data-bind' => 'text: name'}
                   <!-- /ko -->
                   %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
-                    %a{'href' => "#/about"}
+                    %a{href: "#/about"}
                       .logo{'data-bind' => 'text: "?"'}
                       %span About
 
@@ -149,13 +149,13 @@
                   %p Want to add a new language to the list? Or add your favorite resource?
                   %p
                     Check out
-                    %a{'href' => 'https://github.com/matstc/whatsnext.info'}
+                    %a{href: 'https://github.com/matstc/whatsnext.info'}
                       whatsnext.info
                     on github and submit a pull request.
 
                   %h2 Contributors
                   .row(data-bind='foreach: contributors')
-                    .col-xs-4
+                    .col-xs-6.col-sm-4
                       .thumbnail
                         %a(data-bind='attr: {href: html_url}')
                           %img(data-bind='attr: {src: avatar_url}')
@@ -174,11 +174,11 @@
                   %h2 License
                   %p<
                     This project is under a
-                    %a{'href' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'}<
+                    %a{href: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'}<
                       Creative Commons BY-NC-SA license
                     = "."
 
         .col-md-2
 
-  = haml :analytics, :locals => {:tracking_id => ENV['TRACKING_ID']}
+  = haml :analytics, locals: {tracking_id: ENV['TRACKING_ID']}
 
