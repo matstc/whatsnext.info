@@ -3,3 +3,4 @@
 *.swn
 coverage/
 /node_modules
+*.jshintrc

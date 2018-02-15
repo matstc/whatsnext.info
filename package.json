@@ -1,10 +1,23 @@
 {
   "name": "whatsnext.info",
   "dependencies": {
-    "requirejs": "*",
-    "mocha": "*",
-    "jsdom": "*",
+    "ajv": "^6.1.1",
     "assert-plus": "*",
-    "istanbul": "*"
+    "bootstrap": "^3.1.1",
+    "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "istanbul": "*",
+    "jquery": "^3.3.1",
+    "jsdom": "*",
+    "knockout": "3.4.2",
+    "mocha": "*",
+    "popper.js": "^1.12.9",
+    "requirejs": "*",
+    "sammy": "^0.7.6",
+    "style-loader": "^0.20.1",
+    "url-loader": "^0.6.2"
+  },
+  "devDependencies": {
+    "webpack": "^3.11.0"
   }
 }

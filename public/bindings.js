@@ -1,24 +1,21 @@
-define(['knockout', 'jquery'], function(ko, jquery){
-  ko.bindingHandlers.rank = {
-      update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var prefix = valueAccessor() || "";
-        var oneBasedIndex = prefix + (bindingContext.$index() + 1);
-        jquery(element).text(oneBasedIndex);
-      }
-  };
+import ko from 'knockout';
+import $ from 'jquery';
 
-  ko.bindingHandlers.striped = {
-      update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var jElem = jquery(element);
-        var clazz = bindingContext.$index() % 2 === 0 ? "even" : "odd";
+ko.bindingHandlers.rank = {
+  update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    var prefix = valueAccessor() || "";
+    var oneBasedIndex = prefix + (bindingContext.$index() + 1);
+    $(element).text(oneBasedIndex);
+  }
+};
 
-        jElem.removeClass("odd");
-        jElem.removeClass("even");
-        jElem.addClass(clazz);
-      }
-  };
+ko.bindingHandlers.striped = {
+  update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    var jElem = $(element);
+    var clazz = bindingContext.$index() % 2 === 0 ? "even" : "odd";
 
-  return {rank: ko.bindingHandlers.rank, striped: ko.bindingHandlers.striped}
-});
-
-
+    jElem.removeClass("odd");
+    jElem.removeClass("even");
+    jElem.addClass(clazz);
+  }
+};
