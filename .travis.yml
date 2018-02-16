@@ -1,6 +1,7 @@
 language: ruby
 rvm: 2.5.0
 before_script: 
+  - npm i -g npm
   - npm install
   - npm install -g mocha
 script:
