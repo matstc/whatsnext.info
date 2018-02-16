@@ -3,3 +3,10 @@
 *.swn
 coverage/
 /node_modules
+*.jshintrc
+/public/*ttf
+/public/*eot
+/public/*woff
+/public/*woff2
+/public/*svg
+/public/bundle.js

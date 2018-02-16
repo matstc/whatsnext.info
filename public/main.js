@@ -1,45 +1,48 @@
-requirejs.config({
-  paths: {jquery: 'jquery-2.1.0'},
-  deps: ["jquery", "require"],
-  callback: function(jquery, require){
-    require(['app', 'sammy', 'bootstrap'], function(app, sammy){
-      window.app = app;
-      jquery(document).ready(app.init);
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'bootstrap/dist/js/bootstrap.js'
+import './styles.css'
+import app from './app'
+import * as sammy from 'sammy'
 
-      sammy(function(){
-        this.get("/", function(){
-          this.redirect("#/about");
-        });
+window.app = app
 
-        this.get("#/about", function(){
-          app.viewModel.activate(location.hash);
-          $(document.head.getElementsByTagName("title")).text("What's Next? — About");
-          jquery.getJSON('/contributors', app.viewModel.contributors);
-        });
+$(function() {
+  app.init();
+})
 
-        this.get("#/:language", function(){
-          app.viewModel.repositories([]);
-          skippedLanguages = ['programming', 'rails', 'meteor'];
-          if ($.inArray(this.params['language'], skippedLanguages) == -1){
-            jquery.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
-          }
+sammy(function(){
+  this.get("/", function(){
+    this.redirect("#/about");
+  });
 
-          app.viewModel.activate(location.hash);
+  this.get("#/about", function(){
+    app.viewModel.activate(location.hash);
+    $(document.head.getElementsByTagName("title")).text("What's Next? — About");
+    $.getJSON('/contributors', app.viewModel.contributors);
+  });
 
-          if(typeof window !== "undefined" && app.viewModel.activeLanguage()){
-            var language = app.viewModel.activeLanguage();
+  this.get("#/:language", function(){
+    app.viewModel.repositories([]);
+    var skippedLanguages = ['programming', 'rails', 'meteor'];
+    if ($.inArray(this.params['language'], skippedLanguages) == -1){
+      $.getJSON('/repositories/' + this.params['language'], app.viewModel.repositories);
+    }
 
-            jquery.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
+    app.viewModel.activate(location.hash);
 
-            setTimeout(function(){
-              var toScroll = jquery("h1#section")[0].getBoundingClientRect().top + jquery(document.body).scrollTop() - 20;
-              jquery("html, body").animate({ scrollTop: toScroll + "px" });
-            }, 200);
+    if(typeof window !== "undefined" && app.viewModel.activeLanguage()){
+      var language = app.viewModel.activeLanguage();
 
-            $(document.head.getElementsByTagName("title")).text("What's Next? — " + language.name);
-          }
-        });
-      }).run();
-    });
-  }
-});
+      $.getJSON('/resources/' + language.name.toLowerCase(), language.resources);
+
+      setTimeout(function(){
+        var toScroll = $("h1#section")[0].getBoundingClientRect().top + $(document.body).scrollTop() - 20;
+        $("html, body").animate({ scrollTop: toScroll + "px" });
+      }, 200);
+
+      $(document.head.getElementsByTagName("title")).text("What's Next? — " + language.name);
+    }
+  });
+}).run()

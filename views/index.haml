@@ -1,11 +1,6 @@
 !!!
 %html
   %head
-    %script{'data-main' => 'main', 'src' => 'require.js'}
-    %link{'href' => 'bootstrap.css', 'rel' => 'stylesheet'}
-    %link{'href' => 'bootstrap-theme.css', 'rel' => 'stylesheet'}
-    %link{'href' => 'styles.css', 'rel' => 'stylesheet'}
-
     %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1, maximum-scale=1", "user-scalable" => "no"}
     %meta{'name' => 'description', 'content' => "Resources to learn programming languages for beginners, experts, and freelancers."}
     %meta{'name' => 'keywords', 'content' => "code, coding, programming, language, learning, resources, ruby, python, javascript, coffeescript, css, github, repositories, interview, questions"}
@@ -34,7 +29,7 @@
                 on github
               = "."
 
-          %div{'data-bind' => 'template {name: "main-template"}'}
+          %div{'data-bind' => 'template: {name: "main-template"}'}
 
           %script{'type' => 'text/html', 'id' => 'main-template'}
             .row
@@ -42,7 +37,7 @@
                 %ul.nav.nav-pills.nav-stacked.language-list
                   <!-- ko foreach: languages -->
                   %li{'data-bind' => 'css: $root.activeCss($data)'}
-                    %a{'data-bind' => 'attr {href: hash}'}
+                    %a{'data-bind' => 'attr: {href: hash}'}
                       .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
                       %span{'data-bind' => 'text: name'}
                   <!-- /ko -->
@@ -62,7 +57,7 @@
                     <!-- ko with: activeLanguage().resources -->
                     .panel.panel-default
                       .panel-heading
-                        %h2{'data-toggle' => 'collapse', 'data-target' => '#for-beginners'}<
+                        %h2{'data-toggle' => 'collapse', 'data-target' => "#for-beginners"}<
                           %i{'class' => 'glyphicon glyphicon-plus'}
                           = "Resources For Beginners"
                       .panel-collapse.collapse{'id' => 'for-beginners'}
@@ -109,11 +104,11 @@
 
                           %ul.repository-list{'data-bind' => 'foreach: repositories'}
                             %li{'data-bind' => 'striped'}
-                              %img{'data-bind' => 'attr {src:owner.avatar_url}'}
+                              %img{'data-bind' => 'attr: {src:owner.avatar_url}'}
                               %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
                               .info
                                 %h3.name
-                                  %a{'data-bind' => 'text: name, attr {href: html_url}'}
+                                  %a{'data-bind' => 'text: name, attr: {href: html_url}'}
                                 %span{'data-bind' => 'text: description'}
                                 .star-count
                                   %span.label.label-success
@@ -180,5 +175,5 @@
 
         .col-md-2
 
+  %script{src: 'bundle.js', defer: 'defer'}
   = haml :analytics, locals: {tracking_id: ENV['TRACKING_ID']}
-
