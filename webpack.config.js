@@ -1,4 +1,6 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
+
 
 module.exports = {
   entry: './public/main.js',
@@ -25,5 +27,11 @@ module.exports = {
         use: 'file-loader'
       }
     ]
-  }
-};
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    })
+  ]
+}
