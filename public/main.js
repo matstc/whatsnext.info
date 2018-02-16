@@ -1,16 +1,16 @@
-import $ from 'jquery';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import './styles.css';
-import app from './app';
-import * as sammy from 'sammy';
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'bootstrap/dist/js/bootstrap.js'
+import './styles.css'
+import app from './app'
+import * as sammy from 'sammy'
 
-
-window.app = app;
+window.app = app
 
 $(function() {
   app.init();
-});
+})
 
 sammy(function(){
   this.get("/", function(){
@@ -45,4 +45,4 @@ sammy(function(){
       $(document.head.getElementsByTagName("title")).text("What's Next? — " + language.name);
     }
   });
-}).run();
+}).run()
