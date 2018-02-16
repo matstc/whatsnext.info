@@ -1,10 +1,11 @@
 require("./spec_helper");
-
-var app = requirejs('app');
+var assert = require('assert');
+var app = require('../../public/app');
+app = app.default;
 
 describe("language", function(){
   it("has a name", function(){
-    assert.equal(new app.Language('name').name, 'name');
+    assert.equal(app.Language('name').name, 'name');
   });
 
   it("has a hash that contains its name downcased", function(){
