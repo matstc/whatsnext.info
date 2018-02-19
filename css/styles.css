@@ -1,4 +1,4 @@
-ul li {list-style-type:square;}
+ul li {list-style-type: square;}
 .repository-list, .repository-list li {list-style-type: none;}
 .repository-list {margin:0; padding:0;}
 .repository-list li .info {padding-left:60px;}
@@ -9,13 +9,14 @@ ul li {list-style-type:square;}
 .repository-list li {clear:both; margin-bottom:30px; padding:20px 20px 25px 15px; min-height:120px; border-radius:3px;}
 .repository-list .rank {float:left; font-size:24px; color:#666; font-family:Luckiest Guy;}
 
-.language-list li {font-size:16px;}
+.language-list li {font-size:16px; list-style-type: none;}
 .language-list li.active a .logo {box-shadow:1px 1px #333;}
 .language-list li.about {margin-top:30px; border-top:1px solid #ccc; padding-top:10px;}
 .language-list li a .logo {letter-spacing:2px; font-size:24px; color:white; background-color:#999; padding:7px 0 2px 2px; width:46px; margin-right:5px; font-family:Luckiest Guy; border-radius:4px; display:inline-block; text-align:center;}
 
 .lead {letter-spacing:-1px; color:#666; border-top:1px dotted #ccc; font-family:Courier New, Courier;}
-.header h1 {font-size:42px;}
+.header h1 {font-size:42px; margin: 20px 0}
+.header {margin: 20px 0}
 article h1 {border-bottom: 1px solid #ddd; font-size:38px;}
 article ul {margin-bottom:20px; padding-left:25px;}
 article {padding-bottom:300px;}
@@ -24,17 +25,15 @@ p, .p-ish {line-height:24px; font-size:16px;}
 .p-ish ul li {margin: 15px 0;}
 * {font-family:Ubuntu, Verdana;}
 h2 {margin-top:60px; font-size:22px; letter-spacing:1px;}
-.panel h2 {margin:0; padding:0;}
+.card {margin-bottom: 5px;}
+.card h2 {margin:0; padding:0;}
 .footer {margin-bottom:20px; color:#888; font-size:12px;}
-.panel-heading h2 {cursor:pointer;}
-.panel-heading h2:hover {text-decoration:underline;}
-.panel-heading i {font-size:60%; margin-bottom:3px; vertical-align:middle; margin-right:3px;}
-.panel-heading {padding: 10px 10px 2px;}
+.card-heading h2 {cursor:pointer;}
+.card-heading h2:hover {text-decoration:underline;}
+.card-heading i {font-size:60%; margin-bottom:0px; vertical-align:middle; margin-right:3px;}
+.card-heading {padding: 10px 10px 2px;}
 .call-to-contribute {text-align:center; color:#888; font-size:12px; margin:30px 0 0 0;}
 
-@media (min-width: 768px) {
-  .language-list {margin-top: 30px;}
-  .lead {font-size:20px;}
-  .content {margin-top:32px;}
-  .header h1 {margin-top:80px;}
+@media (min-width: 992px) {
+  .content {margin-top: 40px;}
 }

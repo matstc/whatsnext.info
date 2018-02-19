@@ -1,11 +1,10 @@
 import $ from 'jquery'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/css/bootstrap-theme.css'
-import 'bootstrap/dist/js/bootstrap.js'
+// CSS
+import '../css/main.scss'
+import 'bootstrap'
+import '../css/styles.css'
 
-import './styles.css'
-import { initSammyRoutes } from './sammy-routes'
 import app from './app'
 
 

@@ -8,20 +8,21 @@
       What's Next?
     <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 
   %body
     .container
       .row.header
-        .col-md-2
-        .col-md-8
+        .col-lg-1.col-md-0
+        .col-lg-10.col-md-12
           %h1 What's Next?
           .lead Resources.for_learning %w(languages and Github projects)
-        .col-md-2
+        .col-lg-1.col-md-12
 
       .row.content
-        .col-md-2
-        .col-md-8
+        .col-lg-1.col-md-0
+        .col-lg-10.col-md-12
           %script{'type' => 'text/html', 'id' => 'call-to-contribute-template'}
             .call-to-contribute<
               Contribute to these resources
@@ -34,86 +35,85 @@
           %script{'type' => 'text/html', 'id' => 'main-template'}
             .row
               .col-md-4
-                %ul.nav.nav-pills.nav-stacked.language-list
+                %ul.nav.nav-pills.flex-column.language-list
                   <!-- ko foreach: languages -->
                   %li{'data-bind' => 'css: $root.activeCss($data)'}
-                    %a{'data-bind' => 'attr: {href: hash}'}
+                    %a.nav-link{'data-bind' => 'attr: {href: hash}, css: $root.activeCss($data)'}
                       .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
                       %span{'data-bind' => 'text: name'}
                   <!-- /ko -->
                   %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
-                    %a{href: "#/about"}
+                    %a.nav-link{href: "#/about"}
                       .logo{'data-bind' => 'text: "?"'}
                       %span About
 
               .col-md-8
-                %article{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
+                %article.mt-100-sm{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}
                   %h1#section{'data-bind' => 'text: activeLanguage().name'}
                   <!-- ko with: activeLanguage().resources -->
                   %blockquote{'data-bind' => 'html: in_one_sentence'}
                   <!-- /ko -->
 
-                  .panel-group
-                    <!-- ko with: activeLanguage().resources -->
-                    .panel.panel-default
-                      .panel-heading
-                        %h2{'data-toggle' => 'collapse', 'data-target' => "#for-beginners"}<
-                          %i{'class' => 'glyphicon glyphicon-plus'}
-                          = "Resources For Beginners"
-                      .panel-collapse.collapse{'id' => 'for-beginners'}
-                        .panel-body
-                          %div{'data-bind' => 'html: for_beginners'}
-                          %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
+                  <!-- ko with: activeLanguage().resources -->
+                  .card
+                    .card-heading.bg-light
+                      %h2{'data-toggle' => 'collapse', 'data-target' => "#for-beginners"}<
+                        %i{'class' => 'fa fa-plus'}
+                        = "Resources For Beginners"
+                    .card-collapse.collapse{'id' => 'for-beginners'}
+                      .card-body
+                        %div{'data-bind' => 'html: for_beginners'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
 
-                    .panel.panel-default
-                      .panel-heading
-                        %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}<
-                          %i{'class' => 'glyphicon glyphicon-plus'}
-                          = "Resources For Experts"
-                      .panel-collapse.collapse{'id' => 'for-experts'}
-                        .panel-body
-                          %div{'data-bind' => 'html: for_experts'}
-                          %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
+                  .card
+                    .card-heading.bg-light
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#for-experts'}<
+                        %i{'class' => 'fa fa-plus'}
+                        = "Resources For Experts"
+                    .card-collapse.collapse{'id' => 'for-experts'}
+                      .card-body
+                        %div{'data-bind' => 'html: for_experts'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
 
-                    .panel.panel-default
-                      .panel-heading
-                        %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}<
-                          %i{'class' => 'glyphicon glyphicon-plus'}
-                          = "Interview Questions"
-                      .panel-collapse.collapse#interview-questions
-                        .panel-body
-                          %p Here are some questions you should be comfortable with.
-                          .p-ish
-                            %div{'data-bind' => 'html: interview_questions'}
-                          %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
-                    <!-- /ko -->
+                  .card
+                    .card-heading.bg-light
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#interview-questions'}<
+                        %i{'class' => 'fa fa-plus'}
+                        = "Interview Questions"
+                    .card-collapse.collapse#interview-questions
+                      .card-body
+                        %p Here are some questions you should be comfortable with.
+                        .p-ish
+                          %div{'data-bind' => 'html: interview_questions'}
+                        %div{'data-bind' => 'template: {name: "call-to-contribute-template"}'}
+                  <!-- /ko -->
 
-                    .panel.panel-default{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
-                      .panel-heading
-                        %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}<
-                          %i{'class' => 'glyphicon glyphicon-plus'}
-                          = "Most Popular Github Projects"
-                      .panel-collapse.collapse.in#repositories
-                        .panel-body
-                          %p<
-                            These projects are written mostly in
-                            %span{'data-bind' => 'text: activeLanguage().name'}<
-                            = "."
-                          %p
-                            Have a look at these projects to hone your skills. Read code. Submit pull requests.
+                  .card{'data-bind' => 'if: repositories().length > 0, visible: repositories().length > 0'}
+                    .card-heading.bg-light
+                      %h2{'data-toggle' => 'collapse', 'data-target' => '#repositories'}<
+                        %i{'class' => 'fa fa-plus'}
+                        = "Most Popular Github Projects"
+                    .card-collapse.collapse.in#repositories
+                      .card-body
+                        %p<
+                          These projects are written mostly in
+                          %span{'data-bind' => 'text: activeLanguage().name'}<
+                          = "."
+                        %p
+                          Have a look at these projects to hone your skills. Read code. Submit pull requests.
 
-                          %ul.repository-list{'data-bind' => 'foreach: repositories'}
-                            %li{'data-bind' => 'striped'}
-                              %img{'data-bind' => 'attr: {src:owner.avatar_url}'}
-                              %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
-                              .info
-                                %h3.name
-                                  %a{'data-bind' => 'text: name, attr: {href: html_url}'}
-                                %span{'data-bind' => 'text: description'}
-                                .star-count
-                                  %span.label.label-success
-                                    %span{'class' => 'glyphicon glyphicon-star'}
-                                    %span{'data-bind' => 'text: stargazers_count'}
+                        %ul.repository-list{'data-bind' => 'foreach: repositories'}
+                          %li{'data-bind' => 'striped'}
+                            %img{'data-bind' => 'attr: {src:owner.avatar_url}'}
+                            %div{'data-bind' => 'rank: "#"', 'class' => 'rank'}
+                            .info
+                              %h3.name
+                                %a{'data-bind' => 'text: name, attr: {href: html_url}'}
+                              %span{'data-bind' => 'text: description'}
+                              .star-count
+                                %span.label.label-success
+                                  %span{'class' => 'glyphicon glyphicon-star'}
+                                  %span{'data-bind' => 'text: stargazers_count'}
 
                 %article{'data-bind' => 'visible: onAbout()'}
                   %h1 Get Learning
@@ -173,7 +173,7 @@
                       Creative Commons BY-NC-SA license
                     = "."
 
-        .col-md-2
+        .col-lg-1.col-md-0
 
   %script{src: 'bundle.js', defer: 'defer'}
   = haml :analytics, locals: {tracking_id: ENV['TRACKING_ID']}
