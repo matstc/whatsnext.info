@@ -26,11 +26,6 @@ export function initSammyRoutes(){
 
         $.getJSON('/resources/' + language.name.toLowerCase(), language.resources)
 
-        setTimeout(function(){
-          var toScroll = $('h1#section')[0].getBoundingClientRect().top + $(document.body).scrollTop() - 20
-          $('html, body').animate({ scrollTop: toScroll + 'px' })
-        }, 200)
-
         $(document.head.getElementsByTagName('title')).text("What's Next? — " + language.name)
       }
     })

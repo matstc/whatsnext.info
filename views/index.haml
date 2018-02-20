@@ -18,7 +18,7 @@
         .col-lg-10.col-md-12
           %h1 What's Next?
           .lead Resources.for_learning %w(languages and Github projects)
-        .col-lg-1.col-md-12
+        .col-lg-1.col-md-0
 
       .row.content
         .col-lg-1.col-md-0
@@ -35,17 +35,21 @@
           %script{'type' => 'text/html', 'id' => 'main-template'}
             .row
               .col-md-4
-                %ul.nav.nav-pills.flex-column.language-list
-                  <!-- ko foreach: languages -->
-                  %li{'data-bind' => 'css: $root.activeCss($data)'}
-                    %a.nav-link{'data-bind' => 'attr: {href: hash}, css: $root.activeCss($data)'}
-                      .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
-                      %span{'data-bind' => 'text: name'}
-                  <!-- /ko -->
-                  %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
-                    %a.nav-link{href: "#/about"}
-                      .logo{'data-bind' => 'text: "?"'}
-                      %span About
+                %nav.navbar.navbar-expand-md.navbar-light
+                  %button.navbar-toggler.collapsed{'data-toggle' => 'collapse', 'data-target' => '.menu'}
+                    %span.navbar-toggler-icon
+                  .menu.navbar-collapse.collapse
+                    %ul.navbar-nav.nav-pills.flex-column.language-list
+                      <!-- ko foreach: languages -->
+                      %li{'data-bind' => 'css: $root.activeCss($data)'}
+                        %a.nav-link{'data-bind' => 'attr: {href: hash}, css: $root.activeCss($data)'}
+                          .logo{'data-bind' => 'text: shortName, style: {backgroundColor: color}'}
+                          %span{'data-bind' => 'text: name'}
+                      <!-- /ko -->
+                      %li.about{'data-bind' => 'css: $root.activeCss($root.about)'}
+                        %a.nav-link{href: "#/about"}
+                          .logo{'data-bind' => 'text: "?"'}
+                          %span About
 
               .col-md-8
                 %article.mt-100-sm{'data-bind' => 'if: activeLanguage, visible: activeLanguage'}

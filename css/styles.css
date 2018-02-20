@@ -16,7 +16,7 @@ ul li {list-style-type: square;}
 
 .lead {letter-spacing:-1px; color:#666; border-top:1px dotted #ccc; font-family:Courier New, Courier;}
 .header h1 {font-size:42px; margin: 20px 0}
-.header {margin: 20px 0}
+.header {margin-top: 20px; margin-bottom: 20px}
 article h1 {border-bottom: 1px solid #ddd; font-size:38px;}
 article ul {margin-bottom:20px; padding-left:25px;}
 article {padding-bottom:300px;}
@@ -36,4 +36,10 @@ h2 {margin-top:60px; font-size:22px; letter-spacing:1px;}
 
 @media (min-width: 992px) {
   .content {margin-top: 40px;}
+}
+
+@media (max-width: 767px) {
+  .navbar {padding: 0 0; margin-bottom: 1rem;}
+  .navbar-nav .nav-link {padding-left: 0.5rem}
+  .navbar-toggler {margin-bottom: 10px}
 }
