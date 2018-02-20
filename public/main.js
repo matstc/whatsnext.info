@@ -6,6 +6,7 @@ import 'bootstrap'
 import '../css/styles.css'
 
 import app from './app'
+import { initSammyRoutes } from './sammy-routes'
 
 
 $(function() {

@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import sammy from 'sammy'
 
 export function initSammyRoutes(){
