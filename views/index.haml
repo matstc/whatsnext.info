@@ -154,10 +154,10 @@
 
                   %h2 Contributors
                   .row(data-bind='foreach: contributors')
-                    .col-xs-6.col-sm-4
+                    .col-6.col-md-4.col-xl-3
                       .thumbnail
                         %a(data-bind='attr: {href: html_url}')
-                          %img(data-bind='attr: {src: avatar_url}')
+                          %img.img-fluid.img-thumbnail(data-bind='attr: {src: avatar_url}')
                           .caption
                             %strong.login(data-bind='text: login')
                             %br
