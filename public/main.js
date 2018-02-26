@@ -3,7 +3,7 @@ import $ from 'jquery'
 // CSS
 import '../css/main.scss'
 import 'bootstrap'
-import '../css/styles.css'
+import '../css/styles.scss'
 
 import app from './app'
 import { initSammyRoutes } from './sammy-routes'

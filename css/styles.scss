@@ -1,3 +1,15 @@
+:root {
+  --link-color: #428bca;
+}
+a { color: var(--link-color) }
+.navbar-light .navbar-nav {
+  a.nav-link {
+    color: var(--link-color);
+  }
+  a.nav-link.active {
+    color: #fff 
+  }
+}
 ul li {list-style-type: square;}
 .repository-list, .repository-list li {list-style-type: none;}
 .repository-list {margin:0; padding:0;}
